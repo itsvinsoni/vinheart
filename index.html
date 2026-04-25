@@ -1,0 +1,2606 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prepe - Cardiac System ❤️ Interactive Notes</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Poppins:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        /* ==================== ROOT VARIABLES ==================== */
+        :root {
+            --primary: #fb923c; /* orange-400 */
+            --primary-light: #fed7aa; /* orange-200 */
+            --primary-dark: #f97316; /* orange-500 */
+            --secondary: #ea580c; /* orange-600 */
+            --text-dark: #1f2937;
+            --text-medium: #4b5563;
+            --text-light: #6b7280;
+            --bg-light: #f8fafc;
+            --border-color: #e2e8f0;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        /* ==================== GLOBAL STYLES ==================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* ==================== SLIDES CONTAINER ==================== */
+        .slides-container {
+            max-width: 1080px;
+            margin: 0 auto;
+            padding: 30px 15px;
+        }
+
+        /* ==================== SLIDE STYLES ==================== */
+        .slide {
+            width: 100%;
+            height: auto;
+            min-height: auto;
+            background: #ffffff;
+            margin-bottom: 30px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: var(--shadow-lg);
+            position: relative;
+            padding: 40px;
+            overflow: hidden;
+            border-radius: 24px;
+            border-top: 8px solid;
+            border-image: linear-gradient(90deg, var(--primary), var(--secondary)) 1;
+        }
+        
+        .slide::after {
+            content: 'Prepe';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-30deg);
+            font-size: 180px;
+            font-weight: 900;
+            color: rgba(0, 0, 0, 0.03);
+            z-index: 1;
+            pointer-events: none;
+            text-transform: uppercase;
+        }
+
+        .slide-number {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text-light);
+            background-color: #f1f5f9;
+            padding: 5px 15px;
+            border-radius: 20px;
+            z-index: 2;
+        }
+
+        /* ==================== HEADER ==================== */
+        .slide-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            margin-bottom: 35px;
+            flex-shrink: 0;
+            position: relative;
+            z-index: 2;
+        }
+
+        .brand {
+            font-size: 36px;
+            font-weight: 900;
+            color: var(--primary-dark);
+        }
+        
+        .slide-title {
+            font-size: 52px;
+            font-weight: 900;
+            color: var(--text-dark);
+            text-align: right;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .slide-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 60%;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, var(--secondary), var(--primary));
+            border-radius: 2px;
+        }
+
+        /* ==================== CONTENT AREA ==================== */
+        .slide-content {
+            flex-grow: 1;
+            display: flex;
+            gap: 30px;
+            width: 100%;
+            position: relative;
+            z-index: 2;
+        }
+
+        .main-column {
+            flex-basis: 65%;
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .side-column {
+            flex-basis: 35%;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        /* ==================== TYPOGRAPHY ==================== */
+        h3 {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--text-dark);
+            margin: 0 0 20px 0;
+            padding-bottom: 12px;
+            border-bottom: 2px solid var(--border-color);
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        h3::before {
+            content: '✨';
+            margin-right: 10px;
+        }
+        
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        li {
+            margin-bottom: 18px;
+        }
+
+        .main-column > ul > li {
+            background-color: #f9fafb;
+            border-radius: 12px;
+            padding: 15px;
+            transition: all 0.2s ease;
+            border-left: 4px solid var(--primary);
+        }
+        
+        .main-column > ul > li:hover {
+            transform: translateX(5px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .point-title {
+            font-weight: 700;
+            font-size: 21px;
+            color: var(--text-dark);
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .point-title .icon {
+            margin-right: 12px;
+            font-size: 24px;
+            color: var(--primary);
+        }
+        
+        .point-desc,
+        .point-list {
+            font-size: 18px;
+            color: var(--text-medium);
+            padding-left: 36px;
+            line-height: 1.7;
+        }
+
+        .point-list li {
+            margin-bottom: 10px;
+            padding-left: 8px;
+            position: relative;
+        }
+
+        .point-list li::before {
+            content: '▸';
+            position: absolute;
+            left: -12px;
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        .point-example {
+            font-style: italic;
+            font-size: 17px;
+            color: var(--text-light);
+            margin-top: 10px;
+            padding: 12px 16px;
+            border-left: 4px solid var(--primary);
+            background: #fffbeb;
+            border-radius: 8px;
+        }
+
+        .point-example::before {
+            content: '💡';
+            margin-right: 8px;
+        }
+
+        /* ==================== INFO CARDS ==================== */
+        .info-card {
+            background: #fff;
+            border: 1px solid var(--border-color);
+            padding: 25px;
+            border-radius: 16px;
+            box-shadow: var(--shadow-md);
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s ease-in-out;
+        }
+        
+        .info-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--secondary);
+        }
+
+        .info-card.grow {
+            flex-grow: 1;
+        }
+
+        .info-card h4 {
+            margin: 0 0 15px 0;
+            font-size: 22px;
+            color: var(--text-dark);
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+        }
+
+        .info-card h4::before {
+            content: '🔖';
+            margin-right: 10px;
+        }
+
+        .info-card p,
+        .info-card ul {
+            margin: 0;
+            font-size: 17px;
+            color: var(--text-medium);
+            line-height: 1.7;
+        }
+
+        /* ==================== TABLES ==================== */
+        .mini-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            font-size: 16px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+        }
+
+        .mini-table th,
+        .mini-table td {
+            border-bottom: 1px solid var(--border-color);
+            padding: 14px;
+            text-align: left;
+        }
+        
+        .mini-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .mini-table th {
+            background: var(--primary);
+            color: white;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-size: 15px;
+        }
+
+        .mini-table tbody tr:hover {
+            background: #fff7ed;
+        }
+
+        .mini-table tbody tr:nth-child(even) {
+            background: #f9fafb;
+        }
+
+        /* ==================== BADGES ==================== */
+        .badge-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 12px;
+            margin-top: 15px;
+        }
+
+        .badge {
+            background-color: var(--primary-light);
+            border: 1px solid var(--primary);
+            color: var(--secondary);
+            padding: 12px 8px;
+            border-radius: 12px;
+            text-align: center;
+            font-size: 15px;
+            font-weight: 700;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .badge:hover {
+            transform: scale(1.05);
+            background: var(--primary);
+            color: white;
+            box-shadow: var(--shadow-md);
+        }
+
+        /* ==================== TIMELINE ==================== */
+        .timeline {
+            border-left: 3px solid var(--primary);
+            padding-left: 25px;
+            margin-top: 15px;
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-bottom: 25px;
+        }
+
+        .timeline-item:last-child {
+            padding-bottom: 0;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -32px;
+            top: 5px;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background: var(--primary);
+            border: 3px solid #fff;
+        }
+
+        .timeline-title {
+            font-weight: 700;
+            font-size: 19px;
+            color: var(--text-dark);
+            margin-bottom: 6px;
+        }
+
+        .timeline-desc {
+            font-size: 17px;
+            color: var(--text-medium);
+            line-height: 1.7;
+        }
+
+        /* ==================== FLOW CHART ==================== */
+        .flow-chart {
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            padding-top: 15px;
+            flex-wrap: wrap;
+        }
+
+        .flow-step {
+            text-align: center;
+            font-weight: 700;
+            font-size: 16px;
+            background: #f9fafb;
+            padding: 15px 10px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            transition: all 0.2s ease;
+            min-width: 100px;
+        }
+
+        .flow-step:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--primary);
+        }
+
+        .flow-arrow {
+            font-size: 30px;
+            color: var(--secondary);
+            font-weight: bold;
+        }
+        
+        /* ==================== FOOTER TAGS ==================== */
+        .slide-footer {
+            display: flex;
+            gap: 12px;
+            padding-top: 25px;
+            border-top: 1px solid var(--border-color);
+            margin-top: 30px;
+            flex-shrink: 0;
+            width: 100%;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 2;
+        }
+
+        .footer-tag {
+            background-color: var(--primary-light);
+            color: var(--secondary);
+            padding: 8px 18px;
+            border-radius: 20px;
+            font-size: 16px;
+            font-weight: 700;
+            border: 1px solid transparent;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .footer-tag:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-sm);
+        }
+
+        /* ==================== HERO SLIDE ==================== */
+        .hero-slide {
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding-top: 60px;
+            padding-bottom: 60px;
+        }
+
+        .hero-title {
+            font-size: 85px;
+            font-weight: 900;
+            color: var(--text-dark);
+            margin-bottom: 15px;
+            letter-spacing: -2px;
+        }
+
+        .hero-subtitle {
+            font-size: 30px;
+            color: var(--secondary);
+            margin-bottom: 50px;
+            font-weight: 700;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            width: 100%;
+        }
+
+        .hero-tile {
+            background: #f9fafb;
+            padding: 30px;
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+
+        .hero-tile:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary);
+        }
+
+        .hero-tile h3 {
+            color: var(--primary-dark);
+            border: none;
+            padding: 0;
+            margin-bottom: 12px;
+            font-size: 24px;
+        }
+
+        .hero-tile p {
+            margin: 0;
+            font-size: 18px;
+            color: var(--text-medium);
+            line-height: 1.7;
+            font-weight: 500;
+        }
+        
+        /* ==================== STAT BOXES ==================== */
+        .stat-box {
+            background: #f9fafb;
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.2s ease;
+        }
+
+        .stat-box:hover {
+            transform: scale(1.05);
+            box-shadow: var(--shadow-md);
+        }
+
+        .stat-number {
+            font-size: 42px;
+            font-weight: 900;
+            color: var(--primary);
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+            font-size: 16px;
+            color: var(--text-medium);
+            font-weight: 600;
+        }
+
+        /* ==================== QUICK FACT BOX ==================== */
+        .quick-fact {
+            background: #fffbeb;
+            border-left: 5px solid #facc15; /* yellow-400 */
+            padding: 15px 20px;
+            border-radius: 0 8px 8px 0;
+            margin: 15px 0;
+            position: relative;
+        }
+
+        .quick-fact::before {
+            content: '⚡';
+            font-size: 20px;
+            position: absolute;
+            left: -15px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: white;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow-sm);
+            color: #ca8a04; /* yellow-600 */
+        }
+
+        .quick-fact strong {
+            color: #a16207; /* yellow-700 */
+            font-weight: 800;
+        }
+
+        /* ==================== RESPONSIVE ==================== */
+        @media (max-width: 1100px) {
+            .slide {
+                padding: 30px 25px;
+            }
+
+            .slide-content {
+                flex-direction: column;
+            }
+
+            .main-column,
+            .side-column {
+                flex-basis: auto;
+                width: 100%;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .slides-container {
+                padding: 20px 10px;
+            }
+
+            .slide {
+                padding: 25px 20px;
+            }
+
+             .slide::after {
+                font-size: 120px;
+            }
+
+            .slide-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+                margin-bottom: 25px;
+            }
+
+            .brand {
+                font-size: 30px;
+            }
+
+            .slide-title {
+                font-size: 36px;
+                text-align: left;
+            }
+
+            .slide-title::after {
+                left: 0;
+                right: auto;
+            }
+
+            .hero-grid,
+            .slide-content[style*="grid-template-columns"] {
+                grid-template-columns: 1fr !important;
+            }
+
+            h3 { font-size: 24px; }
+            .point-title { font-size: 19px; }
+            .point-list { font-size: 16px; padding-left: 25px;}
+            .info-card h4 { font-size: 20px; }
+            .info-card p, .info-card ul { font-size: 16px; }
+            .hero-title { font-size: 55px; }
+            .hero-subtitle { font-size: 24px; }
+            .hero-tile h3 { font-size: 22px; }
+            .hero-tile p { font-size: 16px; }
+
+            .mini-table {
+                font-size: 14px;
+            }
+            .mini-table th, .mini-table td {
+                padding: 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .slides-container {
+                padding: 15px 5px;
+            }
+            .slide {
+                padding: 20px 15px;
+                margin-bottom: 20px;
+            }
+             .slide::after {
+                font-size: 90px;
+            }
+            .slide-title { font-size: 30px; }
+            .hero-title { font-size: 42px; }
+            .hero-subtitle { font-size: 20px; }
+            
+            .final-slide-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ==================== FINAL SLIDE STYLES ==================== */
+        .final-slide {
+            background: linear-gradient(135deg, #f5f3ff, #fdf2f8);
+            border-image: linear-gradient(90deg, #6d28d9, #db2777) 1;
+            text-align: center;
+            padding: 60px 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .final-slide-content {
+            max-width: 900px;
+            width: 100%;
+            z-index: 2;
+            position: relative;
+        }
+
+        .final-slide h2 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: #6d28d9;
+            margin-bottom: 8px;
+        }
+
+        .final-slide h3 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 48px;
+            font-weight: 900;
+            color: var(--text-dark);
+            margin-bottom: 15px;
+            border: none;
+            padding: 0;
+            letter-spacing: -1px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            display: block;
+        }
+        
+        .final-slide h3::before {
+            content: none;
+        }
+
+        .final-slide p {
+            font-size: 20px;
+            color: var(--text-medium);
+            margin-bottom: 40px;
+        }
+
+        .final-slide-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .final-slide-box {
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            text-align: center;
+            text-decoration: none;
+        }
+
+        .final-slide-box:hover {
+            transform: translateY(-12px);
+            border-color: #6d28d9;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.07);
+        }
+
+        .final-slide-box .icon {
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+        
+        .final-slide-box .icon.offer {
+            background-color: #dcfce7;
+            color: #22c55e;
+        }
+        
+        .final-slide-box .icon.courses {
+            background-color: #e0f2fe;
+            color: #0ea5e9;
+        }
+        
+        .final-slide-box .icon.insta {
+            background-color: #fdf2f8;
+            color: #db2777;
+        }
+
+        .final-slide-box.insta-box h4 {
+            color: #db2777;
+        }
+        
+        .final-slide-box:hover h4 {
+            color: var(--text-dark);
+        }
+        .final-slide-box:hover span {
+            color: var(--text-light);
+        }
+        .final-slide-box.insta-box:hover h4 {
+            color: #db2777;
+        }
+        
+        .final-slide-box h4 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--text-dark);
+            margin: 0;
+        }
+        
+        .final-slide-box h4::before {
+             content: none;
+        }
+
+        .final-slide-box span {
+            font-size: 16px;
+            color: var(--text-light);
+            font-weight: 500;
+        }
+
+        .final-slide-divider {
+            width: 80%;
+            height: 2px;
+            background: repeating-linear-gradient(
+                90deg,
+                var(--border-color),
+                var(--border-color) 6px,
+                transparent 6px,
+                transparent 12px
+            );
+            margin: 0 auto 40px auto;
+        }
+
+        .final-slide-button {
+            font-family: 'Poppins', sans-serif;
+            display: inline-block;
+            padding: 18px 40px;
+            font-size: 22px;
+            font-weight: 700;
+            color: white;
+            background: linear-gradient(90deg, var(--secondary), var(--primary));
+            border-radius: 16px;
+            text-decoration: none;
+            box-shadow: var(--shadow-lg);
+            transition: all 0.3s ease;
+        }
+
+        .final-slide-button:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 25px -5px rgba(234, 88, 12, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            .final-slide h3 {
+                font-size: 36px;
+            }
+            .final-slide p {
+                font-size: 18px;
+            }
+            .final-slide-box h4 {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main class="slides-container" id="slidesContainer">
+
+        <!-- ==================== SLIDE 1: HERO ==================== -->
+        <section class="slide hero-slide">
+            <div class="slide-number">1 / 23</div>
+            <div class="brand" style="position: absolute; top: 40px; left: 40px;">Prepe</div>
+            <h1 class="hero-title">Cardiac System ❤️</h1>
+            <p class="hero-subtitle">शरीर का पम्पिंग स्टेशन (Cardiovascular System)</p>
+            <div class="hero-grid">
+                <div class="hero-tile">
+                    <h3>The Pump 🫀</h3>
+                    <p>हमारा हृदय जीवन भर बिना रुके धड़कता है। यह रोज़ाना लगभग 100,000 बार धड़कता है और पूरे शरीर में रक्त पहुँचाता है।</p>
+                </div>
+                <div class="hero-tile">
+                    <h3>The Network 🩸</h3>
+                    <p>Arteries, Veins और Capillaries का 60,000 मील लंबा नेटवर्क जो Oxygen और Nutrients को हर सेल तक ले जाता है।</p>
+                </div>
+                <div class="hero-tile">
+                    <h3>The Lifeline ⚡</h3>
+                    <p>यह केवल पंप नहीं करता, बल्कि शरीर के तापमान, pH और Immunity को बनाए रखने में सबसे महत्वपूर्ण भूमिका निभाता है।</p>
+                </div>
+            </div>
+            <div class="quick-fact" style="width: 80%; margin: 40px auto 0 auto; text-align: left;">
+                <strong>DMLT Exam Note:</strong> Anatomy & Physiology का यह सबसे महत्वपूर्ण यूनिट है। Structure, ECG, Blood Pressure और Cardiac Cycle से 100% प्रश्न आते हैं! Scroll करें ↓
+            </div>
+        </section>
+
+        <!-- ==================== SLIDE 2: INTRODUCTION TO CVS ==================== -->
+        <section class="slide">
+            <div class="slide-number">2 / 23</div>
+            <div class="slide-header">
+                <div class="brand">Prepe</div>
+                <div class="slide-title">Introduction to CVS 🩸</div>
+            </div>
+            <div class="slide-content">
+                <div class="main-column">
+                    <h3>What is Cardiovascular System?</h3>
+                    <p style="font-size: 18px; color: var(--text-medium); margin-bottom: 20px; padding: 15px; background: #f9fafb; border-radius: 12px;">
+                        <strong>📚 परिभाषा:</strong> Cardio (हृदय) + Vascular (रक्त वाहिकाएं)। यह शरीर का वह तंत्र है जो पूरे शरीर में रक्त, ऑक्सीजन और पोषक तत्वों का संचार करता है।
+                    </p>
+                    <ul>
+                        <li>
+                            <div class="point-title"><span class="icon">🫀</span>Heart (हृदय)</div>
+                            <ul class="point-list">
+                                <li>यह एक muscular pump है।</li>
+                                <li>पूरे तंत्र को pressure प्रदान करता है ताकि रक्त आगे बढ़ सके।</li>
+                                <li>यह एक मिनट में लगभग 5 लीटर रक्त पंप करता है।</li>
+                            </ul>
+                            <p class="point-example">हृदय को शरीर का Engine मान सकते हैं।</p>
+                        </li>
+                        <li>
+                            <div class="point-title"><span class="icon">🛣️</span>Blood Vessels (रक्त वाहिकाएं)</div>
+                            <ul class="point-list">
+                                <li><strong>Arteries (धमनियां):</strong> शुद्ध रक्त (Oxygenated) को हृदय से दूर ले जाती हैं।</li>
+                                <li><strong>Veins (शिराएं):</strong> अशुद्ध रक्त (Deoxygenated) को हृदय की ओर वापस लाती हैं।</li>
+                                <li><strong>Capillaries (केशिकाएं):</strong> जहां गैसों और पोषक तत्वों का असली आदान-प्रदान होता है।</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <div class="point-title"><span class="icon">💧</span>Blood (रक्त)</div>
+                            <ul class="point-list">
+                                <li>यह वह तरल माध्यम है जो परिवहन (transportation) का कार्य करता है।</li>
+                                <li>Oxygen, Nutrients, Hormones और Waste products को कैरी करता है।</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="side-column">
+                    <div class="info-card">
+                        <h4>Functions of CVS 🎯</h4>
+                        <ul style="list-style-type: '▸'; padding-left: 20px; line-height: 1.8;">
+                            <li><strong>Transportation:</strong> O₂, CO₂, और nutrients का परिवहन।</li>
+                            <li><strong>Regulation:</strong> शरीर का तापमान (Temperature) नियंत्रित करना।</li>
+                            <li><strong>Protection:</strong> WBCs के माध्यम से बीमारियों से रक्षा।</li>
+                            <li><strong>Homeostasis:</strong> शरीर के pH और fluid balance को बनाए रखना।</li>
+                        </ul>
+                    </div>
+                    <div class="info-card grow">
+                        <h4>Types of Circulation 🔄</h4>
+                        <table class="mini-table">
+                            <thead>
+                                <tr>
+                                    <th>Circulation</th>
+                                    <th>Pathway</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Pulmonary</strong></td>
+                                    <td>Heart ➡️ Lungs ➡️ Heart</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Systemic</strong></td>
+                                    <td>Heart ➡️ Body ➡️ Heart</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Coronary</strong></td>
+                                    <td>Heart ➡️ Heart Wall</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <div class="footer-tag">🩸 Basics of CVS</div>
+                <div class="footer-tag">🫀 Pump & Pipes</div>
+                <div class="footer-tag">🔄 Pulmonary vs Systemic</div>
+            </div>
+        </section>
+
+        <!-- ==================== SLIDE 3: STRUCTURE OF HEART (EXTERNAL) ==================== -->
+        <section class="slide">
+            <div class="slide-number">3 / 23</div>
+            <div class="slide-header">
+                <div class="brand">Prepe</div>
+                <div class="slide-title">Structure of Heart ❤️</div>
+            </div>
+            <div class="slide-content">
+                <div class="main-column">
+                    <h3>Location & External Features</h3>
+                    <ul>
+                        <li>
+                            <div class="point-title"><span class="icon">📍</span>Location (स्थिति)</div>
+                            <ul class="point-list">
+                                <li><strong>Mediastinum:</strong> दोनों फेफड़ों के बीच की जगह में स्थित है।</li>
+                                <li><strong>Position:</strong> छाती के बीच में, Sternum (उरोस्थि) के ठीक पीछे।</li>
+                                <li><strong>Tilt (झुकाव):</strong> इसका 2/3 हिस्सा शरीर के बायीं (Left) ओर झुका होता है।</li>
+                                <li><strong>Base:</strong> ऊपर की ओर और थोड़ा दाईं तरफ (Right)।</li>
+                                <li><strong>Apex:</strong> नीचे की ओर, बाईं तरफ (5th Intercostal space पर)।</li>
+                            </ul>
+                            <p class="point-example">Apex Beat (दिल की धड़कन) को 5वीं पसलियों के बीच बाईं ओर महसूस किया जा सकता है।</p>
+                        </li>
+                        <li>
+                            <div class="point-title"><span class="icon">⚖️</span>Size and Weight (आकार और वजन)</div>
+                            <ul class="point-list">
+                                <li><strong>आकार:</strong> बंद मुट्ठी (Closed fist) के बराबर।</li>
+                                <li><strong>Dimensions:</strong> लगभग 12 cm लंबा, 9 cm चौड़ा और 6 cm मोटा।</li>
+                                <li><strong>Male Weight:</strong> 280 - 340 grams।</li>
+                                <li><strong>Female Weight:</strong> 230 - 280 grams।</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <div class="point-title"><span class="icon">🛡️</span>Pericardium (हृदयावरण)</div>
+                            <ul class="point-list">
+                                <li>हृदय को ढकने वाली दोहरी झिल्ली वाली थैली (Double-walled sac)।</li>
+                                <li><strong>Fibrous Pericardium:</strong> बाहरी, सख्त परत जो हृदय को अपनी जगह पर रखती है और over-stretching से बचाती है।</li>
+                                <li><strong>Serous Pericardium:</strong> आंतरिक परत (Parietal और Visceral में विभाजित)।</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="side-column">
+                    <div class="info-card">
+                        <h4>Pericardial Fluid 💧</h4>
+                        <p style="margin-bottom: 12px;">Parietal और Visceral परतों के बीच Pericardial Cavity होती है जिसमें fluid भरा होता है।</p>
+                        <div class="badge-grid">
+                            <div class="badge">मात्रा: 10-15 ml</div>
+                            <div class="badge">कार्य: घर्षण (Friction) कम करना</div>
+                            <div class="badge">सुरक्षा: Shock absorber</div>
+                        </div>
+                    </div>
+                    <div class="info-card grow">
+                        <h4>Clinical Point 🏥</h4>
+                        <p style="margin-bottom: 10px;"><strong>Pericarditis:</strong> Pericardium में सूजन आ जाना। इससे सीने में तेज दर्द होता है।</p>
+                        <p style="margin-bottom: 10px;"><strong>Cardiac Tamponade:</strong> जब cavity में बहुत अधिक fluid भर जाता है और हृदय ठीक से पंप नहीं कर पाता।</p>
+                        <div class="quick-fact" style="margin-top: 15px;">
+                            <strong>याद रखें:</strong> Apex नीचे होता है और Base ऊपर होता है (उल्टा पिरामिड की तरह)!
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <div class="footer-tag">📍 Mediastinum</div>
+                <div class="footer-tag">🛡️ Pericardium</div>
+                <div class="footer-tag">📝 Size & Weight</div>
+            </div>
+        </section>
+
+        <!-- ==================== SLIDE 4: LAYERS OF HEART ==================== -->
+        <section class="slide">
+            <div class="slide-number">4 / 23</div>
+            <div class="slide-header">
+                <div class="brand">Prepe</div>
+                <div class="slide-title">Layers of Heart Wall 🧱</div>
+            </div>
+            <div class="slide-content">
+                <div class="main-column">
+                    <h3>Heart Wall Structure (बाहर से अंदर)</h3>
+                    <p style="font-size: 18px; color: var(--text-medium); margin-bottom: 20px; padding: 15px; background: #f9fafb; border-radius: 12px;">
+                        <strong>💡 Concept:</strong> हृदय की दीवार मुख्य रूप से 3 परतों (layers) से बनी होती है: Epicardium (बाहरी), Myocardium (मध्य), और Endocardium (आंतरिक)।
+                    </p>
+                    <ul>
+                        <li>
+                            <div class="point-title"><span class="icon">1️⃣</span>Epicardium (बाहरी परत)</div>
+                            <ul class="point-list">
+                                <li>यह सबसे बाहरी पतली और पारदर्शी (transparent) परत है।</li>
+                                <li>इसे <strong>Visceral Pericardium</strong> भी कहा जाता है।</li>
+                                <li>इसमें रक्त वाहिकाएं (Blood vessels), लिम्फ और फैट (Fat) मौजूद होता है।</li>
+                                <li>यह हृदय को एक चिकनी और सुरक्षात्मक बाहरी सतह प्रदान करता है।</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <div class="point-title"><span class="icon">2️⃣</span>Myocardium (मध्य परत)</div>
+                            <ul class="point-list">
+                                <li><strong>सबसे मोटी परत:</strong> यह हृदय की दीवार का लगभग 95% हिस्सा बनाती है।</li>
+                                <li><strong>Cardiac Muscle Tissue:</strong> यह विशेष हृदय की मांसपेशियों (striated and involuntary) से बनी है।</li>
+                                <li><strong>कार्य:</strong> हृदय का संकुचन (Contraction/Pumping Action) इसी परत के कारण होता है।</li>
+                                <li>Left Ventricle का Myocardium सबसे मोटा होता है क्योंकि इसे पूरे शरीर में रक्त पंप करना होता है।</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <div class="point-title"><span class="icon">3️⃣</span>Endocardium (आंतरिक परत)</div>
+                            <ul class="point-list">
+                                <li>यह सबसे अंदरूनी पतली और चिकनी (smooth) परत है।</li>
+                                <li>यह Endothelial cells से बनी होती है।</li>
+                                <li><strong>कार्य:</strong> यह रक्त और हृदय की दीवार के बीच घर्षण (friction) को कम करती है।</li>
+                                <li>हृदय के वाल्व (Valves) भी endocardium के ही मुड़े हुए हिस्से (folds) होते हैं।</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="side-column">
+                    <div class="info-card">
+                        <h4>Structural Flow 🔄</h4>
+                        <div class="flow-chart" style="flex-direction: column; gap: 15px;">
+                            <div class="flow-step" style="border-left: 4px solid var(--primary);">Fibrous Pericardium</div>
+                            <div class="flow-arrow" style="transform: rotate(90deg);">↓</div>
+                            <div class="flow-step" style="border-left: 4px solid var(--primary-dark);">Parietal Pericardium</div>
+                            <div class="flow-arrow" style="transform: rotate(90deg);">↓</div>
+                            <div class="flow-step" style="background: #fffbeb;">Pericardial Cavity (Fluid)</div>
+                            <div class="flow-arrow" style="transform: rotate(90deg);">↓</div>
+                            <div class="flow-step" style="border-left: 4px solid #ef4444;">Epicardium (Visceral)</div>
+                            <div class="flow-arrow" style="transform: rotate(90deg);">↓</div>
+                            <div class="flow-step" style="border-left: 8px solid #b91c1c; font-weight: 800;">Myocardium (Muscle)</div>
+                            <div class="flow-arrow" style="transform: rotate(90deg);">↓</div>
+                            <div class="flow-step" style="border-left: 4px solid #3b82f6;">Endocardium (Inner lining)</div>
+                        </div>
+                    </div>
+                    <div class="info-card grow">
+                        <h4>Clinical Link 🏥</h4>
+                        <ul style="list-style-type: '▸'; padding-left: 20px;">
+                            <li><strong>Myocarditis:</strong> Myocardium में संक्रमण। (हृदय कमजोर हो जाता है)</li>
+                            <li><strong>Endocarditis:</strong> आंतरिक परत या वाल्व में बैक्टीरिया का संक्रमण।</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <div class="footer-tag">🧱 3 Layers</div>
+                <div class="footer-tag">💪 Myocardium = Muscle</div>
+                <div class="footer-tag">🛡️ Epicardium = Outer</div>
+            </div>
+        </section>
+
+        <!-- ==================== SLIDE 5: CHAMBERS OF HEART ==================== -->
+        <section class="slide">
+            <div class="slide-number">5 / 23</div>
+            <div class="slide-header">
+                <div class="brand">Prepe</div>
+                <div class="slide-title">Chambers of Heart 🚪</div>
+            </div>
+            <div class="slide-content">
+                <div class="main-column">
+                    <h3>The 4 Chambers (4 कक्ष)</h3>
+                    <p style="font-size: 18px; color: var(--text-medium); margin-bottom: 20px; padding: 15px; background: #f9fafb; border-radius: 12px;">
+                        हृदय में 4 कक्ष होते हैं: ऊपर के दो Receiving Chambers (Atria) और नीचे के दो Pumping Chambers (Ventricles)। इन्हें Septum नामक दीवार अलग करती है।
+                    </p>
+                    <ul>
+                        <li>
+                            <div class="point-title"><span class="icon">🟦</span>Right Atrium (दायां आलिंद)</div>
+                            <ul class="point-list">
+                                <li>यह पूरे शरीर से अशुद्ध रक्त (Deoxygenated blood) प्राप्त करता है।</li>
+                                <li>रक्त 3 नसों से आता है: Superior Vena Cava, Inferior Vena Cava, और Coronary Sinus।</li>
+                                <li>दीवार पतली होती है क्योंकि इसे केवल नीचे Right Ventricle तक रक्त भेजना होता है।</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <div class="point-title"><span class="icon">🔵</span>Right Ventricle (दायां निलय)</div>
+                            <ul class="point-list">
+                                <li>Right Atrium से अशुद्ध रक्त प्राप्त करता है।</li>
+                                <li>यह रक्त को Pulmonary Artery के माध्यम से फेफड़ों (Lungs) में ऑक्सीजन के लिए पंप करता है।</li>
+                                <li>इसकी दीवार Atria से मोटी लेकिन Left Ventricle से पतली होती है।</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <div class="point-title"><span class="icon">🟥</span>Left Atrium (बायां आलिंद)</div>
+                            <ul class="point-list">
+                                <li>फेफड़ों से शुद्ध (Oxygenated) रक्त प्राप्त करता है।</li>
+                                <li>यह रक्त 4 Pulmonary Veins के माध्यम से आता है।</li>
+                                <li>यह शुद्ध रक्त को नीचे Left Ventricle में भेजता है।</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <div class="point-title"><span class="icon">🔴</span>Left Ventricle (बायां निलय)</div>
+                            <ul class="point-list">
+                                <li>हृदय का <strong>सबसे मोटा और शक्तिशाली</strong> कक्ष।</li>
+                                <li>Left Atrium से शुद्ध रक्त प्राप्त करता है।</li>
+                                <li>यह रक्त को <strong>Aorta</strong> के माध्यम से पूरे शरीर में उच्च दबाव (High Pressure) के साथ पंप करता है।</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="side-column">
+                    <div class="info-card">
+                        <h4>Septum (विभाजन दीवार) 🧱</h4>
+                        <table class="mini-table">
+                            <thead>
+                                <tr>
+                                    <th>Septum Type</th>
+                                    <th>Separates</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Interatrial Septum</strong></td>
+                                    <td>Right Atrium & Left Atrium</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Interventricular Septum</strong></td>
+                                    <td>Right Ventricle & Left Ventricle</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <p style="margin-top: 10px; font-size: 14px;"><strong>Fossa Ovalis:</strong> Interatrial septum में एक गड्ढा (भ्रूण अवस्था के Foramen Ovale का अवशेष)।</p>
+                    </div>
+                    <div class="info-card grow">
+                        <h4>Wall Thickness Facts 📏</h4>
+                        <ul style="list-style-type: '▸'; padding-left: 20px;">
+                            <li><strong>Atria:</strong> बहुत पतली दीवार (केवल गुरुत्वाकर्षण से रक्त नीचे जाता है)।</li>
+                            <li><strong>Right Ventricle:</strong> मध्यम मोटाई (केवल फेफड़ों तक रक्त भेजना है)।</li>
+                            <li><strong>Left Ventricle:</strong> सबसे मोटी (Right से 3 गुना मोटी), क्योंकि पूरे शरीर (सिर से पैर तक) रक्त पंप करना है।</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <div class="footer-tag">🚪 4 Chambers</div>
+                <div class="footer-tag">🧱 Septum</div>
+                <div class="footer-tag">🔴 LV is Thickest</div>
+            </div>
+        </section>
+
+        <!-- ==================== SLIDE 6: VALVES OF HEART ==================== -->
+        <section class="slide">
+            <div class="slide-number">6 / 23</div>
+            <div class="slide-header">
+                <div class="brand">Prepe</div>
+                <div class="slide-title">Valves of Heart 🚪</div>
+            </div>
+            <div class="slide-content">
+                <div class="main-column">
+                    <h3>One-Way Doors of the Heart</h3>
+                    <p style="font-size: 18px; color: var(--text-medium); margin-bottom: 20px; padding: 15px; background: #f9fafb; border-radius: 12px;">
+                        <strong>💡 कार्य:</strong> हृदय में 4 Valves होते हैं जो रक्त को केवल <strong>एक दिशा (One direction)</strong> में बहने देते हैं और वापस पीछे (Backflow) जाने से रोकते हैं। ये दबाव (Pressure) बदलने पर खुलते और बंद होते हैं।
+                    </p>
+                    <h3>Atrioventricular (AV) Valves</h3>
+                    <p style="font-size: 16px; margin-bottom: 10px;">ये Atria और Ventricles के बीच होते हैं।</p>
+                    <ul>
+                        <li>
+                            <div class="point-title"><span class="icon">🔽</span>Tricuspid Valve (त्रिवलनी कपाट)</div>
+                            <ul class="point-list">
+                                <li><strong>स्थान:</strong> Right Atrium और Right Ventricle के बीच।</li>
+                                <li><strong>संरचना:</strong> इसमें 3 flaps/cusps (पत्ते) होते हैं।</li>
+                                <li>अशुद्ध रक्त को वापस Right Atrium में जाने से रोकता है।</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <div class="point-title"><span class="icon">⏬</span>Bicuspid / Mitral Valve (द्विवलनी कपाट)</div>
+                            <ul class="point-list">
+                                <li><strong>स्थान:</strong> Left Atrium और Left Ventricle के बीच।</li>
+                                <li><strong>संरचना:</strong> इसमें 2 flaps/cusps होते हैं।</li>
+                                <li>शुद्ध रक्त को वापस Left Atrium में जाने से रोकता है।</li>
+                                <li>इसे Mitral Valve भी कहते हैं (सबसे ज्यादा खराब यही वाल्व होता है)।</li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <h3>Semilunar (SL) Valves</h3>
+                    <p style="font-size: 16px; margin-bottom: 10px;">ये Ventricles और बड़ी धमनियों (Arteries) के बीच होते हैं। इनका आकार आधे चाँद (Half-moon) जैसा होता है।</p>
+                    <ul>
+                        <li>
+                            <div class="point-title"><span class="icon">🌙</span>Pulmonary Valve</div>
+                            <ul class="point-list">
+                                <li><strong>स्थान:</strong> Right Ventricle और Pulmonary Artery के बीच।</li>
+                                <li>रक्त को वापस Right Ventricle में आने से रोकता है।</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <div class="point-title"><span class="icon">🌙</span>Aortic Valve</div>
+                            <ul class="point-list">
+                                <li><strong>स्थान:</strong> Left Ventricle और Aorta के बीच।</li>
+                                <li>रक्त को वापस Left Ventricle में आने से रोकता है।</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="side-column">
+                    <div class="info-card">
+                        <h4>Valve Supports 🪢</h4>
+                        <ul style="list-style-type: '▸'; padding-left: 20px;">
+                            <li><strong>Chordae Tendineae:</strong> धागे जैसी संरचनाएं (Heart strings) जो AV valves को पकड़ कर रखती हैं।</li>
+                            <li><strong>Papillary Muscles:</strong> Ventricles की दीवार पर उभरी मांसपेशियां जिनसे Chordae Tendineae जुड़ी होती हैं।</li>
+                            <li><strong>कार्य:</strong> ये वाल्व को उल्टा (छतरी की तरह) उलटने से रोकते हैं जब Ventricle जोर से सिकुड़ता है।</li>
+                        </ul>
+                    </div>
+                    <div class="info-card grow">
+                        <h4>Valves Summary Table 📊</h4>
+                        <table class="mini-table">
+                            <thead>
+                                <tr>
+                                    <th>Valve</th>
+                                    <th>Location</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Tricuspid</strong></td>
+                                    <td>Right (RA ➡️ RV)</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Mitral</strong></td>
+                                    <td>Left (LA ➡️ LV)</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Pulmonary</strong></td>
+                                    <td>RV ➡️ Lungs</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Aortic</strong></td>
+                                    <td>LV ➡️ Body</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <div class="footer-tag">🚪 4 Valves</div>
+                <div class="footer-tag">🪢 Chordae Tendineae</div>
+                <div class="footer-tag">📝 Prevent Backflow</div>
+            </div>
+        </section>
+
+        <!-- ==================== SLIDE 7: BLOOD VESSELS (ANATOMY) ==================== -->
+        <section class="slide">
+            <div class="slide-number">7 / 23</div>
+            <div class="slide-header">
+                <div class="brand">Prepe</div>
+                <div class="slide-title">Blood Vessels 🛣️</div>
+            </div>
+            <div class="slide-content">
+                <div class="main-column">
+                    <h3>Types of Blood Vessels</h3>
+                    <ul>
+                        <li>
+                            <div class="point-title"><span class="icon">🔴</span>Arteries (धमनियां)</div>
+                            <ul class="point-list">
+                                <li><strong>कार्य:</strong> हृदय से रक्त को दूर (Away) ले जाती हैं।</li>
+                                <li><strong>रक्त:</strong> हमेशा शुद्ध (Oxygenated) रक्त ले जाती हैं। <br><em>अपवाद (Exception):</em> Pulmonary Artery (अशुद्ध रक्त)।</li>
+                                <li><strong>दीवार:</strong> मोटी और लचीली (Thick & Elastic), क्योंकि इनमें High Pressure होता है।</li>
+                                <li><strong>Valves:</strong> इनमें वाल्व नहीं होते हैं।</li>
+                                <li>ये शरीर में गहराई (Deep) में स्थित होती हैं।</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <div class="point-title"><span class="icon">🔵</span>Veins (शिराएं)</div>
+                            <ul class="point-list">
+                                <li><strong>कार्य:</strong> रक्त को वापस हृदय की ओर (Towards) लाती हैं।</li>
+                                <li><strong>रक्त:</strong> हमेशा अशुद्ध (Deoxygenated) रक्त लाती हैं। <br><em>अपवाद:</em> Pulmonary Vein (शुद्ध रक्त)।</li>
+                                <li><strong>दीवार:</strong> पतली और कम लचीली, क्योंकि इनमें Low Pressure होता है।</li>
+                                <li><strong>Valves:</strong> इनमें Valves मौजूद होते हैं (रक्त को वापस नीचे जाने से रोकने के लिए)।</li>
+                                <li>ये त्वचा के करीब (Superficial) होती हैं (जो नीली नसें हमें दिखती हैं)।</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <div class="point-title"><span class="icon">🕸️</span>Capillaries (केशिकाएं)</div>
+                            <ul class="point-list">
+                                <li>सबसे पतली रक्त वाहिकाएं (Microscopic)।</li>
+                                <li>ये Arteries और Veins को जोड़ती हैं।</li>
+                                <li>इनकी दीवार केवल एक कोशिका मोटी (Single cell thick) होती है।</li>
+                                <li><strong>कार्य:</strong> यहाँ ऑक्सीजन, पोषक तत्वों और कार्बन डाइऑक्साइड का असली Exchange (आदान-प्रदान) होता है।</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="side-column">
+                    <div class="info-card">
+                        <h4>Structure of Vessels 🧱</h4>
+                        <p style="margin-bottom: 12px;">Arteries और Veins दोनों 3 परतों से बनी होती हैं:</p>
+                        <div class="timeline">
+                            <div class="timeline-item">
+                                <div class="timeline-title">Tunica Intima (Inner)</div>
+                                <div class="timeline-desc">सबसे अंदरूनी चिकनी परत (Endothelium)।</div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-title">Tunica Media (Middle)</div>
+                                <div class="timeline-desc">मांसपेशियों (Smooth muscle) की परत। धमनियों में यह बहुत मोटी होती है।</div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-title">Tunica Externa (Outer)</div>
+                                <div class="timeline-desc">बाहरी सुरक्षात्मक परत (Connective tissue)।</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="info-card grow">
+                        <h4>Lumen (आंतरिक गुहा) 🕳️</h4>
+                        <p style="margin-bottom: 10px;">पाइप के अंदर का खाली स्थान:</p>
+                        <ul style="list-style-type: '▸'; padding-left: 20px;">
+                            <li><strong>Artery Lumen:</strong> संकरा (Narrow) होता है (ताकि दबाव बना रहे)।</li>
+                            <li><strong>Vein Lumen:</strong> चौड़ा (Wide) होता है।</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <div class="footer-tag">🛣️ Artery vs Vein</div>
+                <div class="footer-tag">🕸️ Capillaries Exchange</div>
+                <div class="footer-tag">🧱 3 Tunica Layers</div>
+            </div>
+        </section>
+
+        <!-- ==================== SLIDE 8: MAJOR BLOOD VESSELS OF HEART ==================== -->
+        <section class="slide">
+            <div class="slide-number">8 / 23</div>
+            <div class="slide-header">
+                <div class="brand">Prepe</div>
+                <div class="slide-title">Major Blood Vessels 🩸</div>
+            </div>
+            <div class="slide-content">
+                <div class="main-column">
+                    <h3>हृदय से जुड़ी प्रमुख वाहिकाएं</h3>
+                    <p style="font-size: 18px; color: var(--text-medium); margin-bottom: 20px; padding: 15px; background: #f9fafb; border-radius: 12px;">
+                        हृदय से खून बाहर ले जाने और अंदर लाने वाले मुख्य "Highway" पाइप।
+                    </p>
+                    <ul>
+                        <li>
+                            <div class="point-title"><span class="icon">👑</span>Aorta (महाधमनी)</div>
+                            <ul class="point-list">
+                                <li>शरीर की <strong>सबसे बड़ी धमनी (Largest Artery)</strong>।</li>
+                                <li><strong>उत्पत्ति:</strong> Left Ventricle से निकलती है।</li>
+                                <li><strong>रक्त:</strong> शुद्ध (Oxygenated) रक्त।</li>
+                                <li><strong>कार्य:</strong> पूरे शरीर (सिर से पैर तक) को शुद्ध रक्त पहुँचाती है।</li>
+                                <li><strong>भाग:</strong> Ascending Aorta, Aortic Arch, Descending Aorta।</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <div class="point-title"><span class="icon">🟦</span>Vena Cava (महाशिरा)</div>
+                            <ul class="point-list">
+                                <li>शरीर की <strong>सबसे बड़ी शिराएं (Largest Veins)</strong>।</li>
+                                <li><strong>कार्य:</strong> पूरे शरीर से अशुद्ध (Deoxygenated) रक्त खींचकर Right Atrium में लाती हैं।</li>
+                                <li><strong>Superior Vena Cava (SVC):</strong> सिर, गर्दन और हाथों (ऊपरी भाग) से रक्त लाती है।</li>
+                                <li><strong>Inferior Vena Cava (IVC):</strong> छाती के नीचे (पेट, पैर) से रक्त लाती है।</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <div class="point-title"><span class="icon">🫁</span>Pulmonary Trunk & Arteries</div>
+                            <ul class="point-list">
+                                <li><strong>उत्पत्ति:</strong> Right Ventricle से निकलती है।</li>
+                                <li>आगे जाकर Right और Left Pulmonary Artery में बंट जाती है।</li>
+                                <li><strong>अपवाद:</strong> यह एकमात्र धमनी है जो <strong>अशुद्ध रक्त</strong> फेफड़ों में ले जाती है।</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <div class="point-title"><span class="icon">🔴</span>Pulmonary Veins</div>
+                            <ul class="point-list">
+                                <li><strong>संख्या:</strong> 4 होती हैं (2 बाएं फेफड़े से, 2 दाएं फेफड़े से)।</li>
+                                <li><strong>कार्य:</strong> फेफड़ों से <strong>शुद्ध रक्त</strong> Left Atrium में लाती हैं।</li>
+                                <li><strong>अपवाद:</strong> यह एकमात्र शिरा है जिसमें शुद्ध रक्त बहता है।</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="side-column">
+                    <div class="info-card">
+                        <h4>Coronary Blood Supply 🫀</h4>
+                        <p style="margin-bottom: 12px; font-weight: bold;">हृदय को खुद काम करने के लिए भी खून चाहिए!</p>
+                        <ul style="list-style-type: '▸'; padding-left: 20px;">
+                            <li><strong>Coronary Arteries:</strong> (Right & Left) - ये Aorta के बेस से निकलती हैं और हृदय की मांसपेशियों (Myocardium) को O₂ देती हैं। <em>(Blockage यहीं होता है -> Heart Attack)</em></li>
+                            <li><strong>Coronary Sinus:</strong> हृदय की दीवारों का अशुद्ध रक्त वापस Right Atrium में डालता है।</li>
+                        </ul>
+                    </div>
+                    <div class="info-card grow">
+                        <h4>Quick Memory Mapping 🧠</h4>
+                        <table class="mini-table">
+                            <thead>
+                                <tr>
+                                    <th>Chamber</th>
+                                    <th>Connected Vessel</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Right Atrium</strong></td>
+                                    <td>SVC, IVC (In)</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Right Ventricle</strong></td>
+                                    <td>Pulm. Artery (Out)</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Left Atrium</strong></td>
+                                    <td>Pulm. Veins (In)</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Left Ventricle</strong></td>
+                                    <td>Aorta (Out)</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <div class="footer-tag">👑 Aorta - Largest</div>
+                <div class="footer-tag">🫀 Coronary Arteries</div>
+                <div class="footer-tag">📝 Exceptions in Pulm.</div>
+            </div>
+        </section>
+
+        <!-- ==================== SLIDE 9: CIRCULATION OF BLOOD (PATHWAY) ==================== -->
+        <section class="slide">
+            <div class="slide-number">9 / 23</div>
+            <div class="slide-header">
+                <div class="brand">Prepe</div>
+                <div class="slide-title">Circulation of Blood 🔄</div>
+            </div>
+            <div class="slide-content">
+                <div class="main-column">
+                    <h3>Flow of Blood Through Heart (रक्त का मार्ग)</h3>
+                    <p style="font-size: 18px; color: var(--text-medium); margin-bottom: 20px; padding: 15px; background: #f9fafb; border-radius: 12px;">
+                        मानव शरीर में <strong>Double Circulation (दोहरा परिसंचरण)</strong> होता है। इसका मतलब है कि एक पूरे चक्र में रक्त हृदय से दो बार गुजरता है।
+                    </p>
+                    
+                    <div style="background: #e0f2fe; padding: 15px; border-left: 4px solid #0284c7; border-radius: 8px; margin-bottom: 20px;">
+                        <h4 style="color: #0369a1; margin-bottom: 10px;">Right Side (अशुद्ध रक्त / Deoxygenated) 🔵</h4>
+                        <ol style="padding-left: 20px; color: #0f172a; line-height: 1.8; font-weight: 600;">
+                            <li>शरीर (Body) ➡️ Vena Cava (SVC/IVC)</li>
+                            <li>Vena Cava ➡️ <strong>Right Atrium (RA)</strong></li>
+                            <li>RA ➡️ Tricuspid Valve खुलेगा ➡️ <strong>Right Ventricle (RV)</strong></li>
+                            <li>RV पंप करेगा ➡️ Pulmonary Valve खुलेगा</li>
+                            <li>➡️ Pulmonary Artery ➡️ <strong>फेफड़े (Lungs - O₂ लेने के लिए)</strong></li>
+                        </ol>
+                    </div>
+
+                    <div style="background: #fee2e2; padding: 15px; border-left: 4px solid #dc2626; border-radius: 8px;">
+                        <h4 style="color: #b91c1c; margin-bottom: 10px;">Left Side (शुद्ध रक्त / Oxygenated) 🔴</h4>
+                        <ol style="padding-left: 20px; color: #0f172a; line-height: 1.8; font-weight: 600;">
+                            <li>फेफड़े (Lungs) ➡️ Pulmonary Veins (4 नसें)</li>
+                            <li>Pulmonary Veins ➡️ <strong>Left Atrium (LA)</strong></li>
+                            <li>LA ➡️ Bicuspid/Mitral Valve खुलेगा ➡️ <strong>Left Ventricle (LV)</strong></li>
+                            <li>LV ज़ोर से पंप करेगा ➡️ Aortic Valve खुलेगा</li>
+                            <li>➡️ <strong>Aorta</strong> ➡️ पूरे शरीर (Body) में!</li>
+                        </ol>
+                    </div>
+                </div>
+                <div class="side-column">
+                    <div class="info-card">
+                        <h4>Pulmonary Circulation 🫁</h4>
+                        <p style="margin-bottom: 12px;">हृदय और फेफड़ों के बीच का रास्ता।</p>
+                        <div class="badge-grid">
+                            <div class="badge">RV से शुरू</div>
+                            <div class="badge">Lungs में O2 लिया</div>
+                            <div class="badge">LA में समाप्त</div>
+                        </div>
+                        <p style="margin-top: 10px; font-size: 14px; color: var(--text-medium);"><strong>उद्देश्य:</strong> रक्त में ऑक्सीजन मिलाना और CO₂ निकालना।</p>
+                    </div>
+                    <div class="info-card grow">
+                        <h4>Systemic Circulation 👤</h4>
+                        <p style="margin-bottom: 12px;">हृदय और पूरे शरीर के बीच का रास्ता।</p>
+                        <div class="badge-grid">
+                            <div class="badge" style="background: #fed7aa; color: #c2410c; border-color: #ea580c;">LV से शुरू</div>
+                            <div class="badge" style="background: #fed7aa; color: #c2410c; border-color: #ea580c;">Body को O2 दिया</div>
+                            <div class="badge" style="background: #fed7aa; color: #c2410c; border-color: #ea580c;">RA में समाप्त</div>
+                        </div>
+                        <p style="margin-top: 10px; font-size: 14px; color: var(--text-medium);"><strong>उद्देश्य:</strong> शरीर के हर सेल को O₂ और पोषक तत्व पहुंचाना।</p>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <div class="footer-tag">🔄 Double Circulation</div>
+                <div class="footer-tag">🔵 Right = Deoxy</div>
+                <div class="footer-tag">🔴 Left = Oxy</div>
+                <div class="footer-tag">📝 100% PYQ Question</div>
+            </div>
+        </section>
+
+        <!-- ==================== SLIDE 10: PORTAL CIRCULATION & SUMMARY ==================== -->
+        <section class="slide">
+            <div class="slide-number">10 / 23</div>
+            <div class="slide-header">
+                <div class="brand">Prepe</div>
+                <div class="slide-title">Special Circulations 🗺️</div>
+            </div>
+            <div class="slide-content">
+                <div class="main-column">
+                    <h3>Hepatic Portal Circulation (यकृत निवाहिका तंत्र)</h3>
+                    <p style="font-size: 18px; color: var(--text-medium); margin-bottom: 20px; padding: 15px; background: #f9fafb; border-radius: 12px;">
+                        <strong>💡 Concept:</strong> सामान्यतः रक्त अंग (Organ) से सीधे हृदय में वापस जाता है। लेकिन Portal system में, रक्त एक अंग से निकलकर हृदय में जाने के बजाय <strong>दूसरे अंग (Liver)</strong> में जाता है।
+                    </p>
+                    <ul>
+                        <li>
+                            <div class="point-title"><span class="icon">🍽️</span>पाचन तंत्र से लीवर तक</div>
+                            <ul class="point-list">
+                                <li>पेट, आंत (Intestine), प्लीहा (Spleen) और अग्न्याशय (Pancreas) का अशुद्ध रक्त सीधे हृदय में <strong>नहीं</strong> जाता।</li>
+                                <li>यह रक्त <strong>Hepatic Portal Vein</strong> के माध्यम से पहले Liver (यकृत) में जाता है।</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <div class="point-title"><span class="icon">🛡️</span>उद्देश्य (Purpose)</div>
+                            <ul class="point-list">
+                                <li>पाचन तंत्र से अवशोषित पोषक तत्वों (Glucose, Amino acids) को Liver प्रोसेस और स्टोर करता है।</li>
+                                <li>खून में मौजूद जहर (Toxins/Alcohol) और बैक्टीरिया को Liver साफ (Detoxify) करता है ताकि वे सीधे हृदय और मस्तिष्क में न पहुंचें।</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <div class="point-title"><span class="icon">📤</span>वापसी (Return)</div>
+                            <ul class="point-list">
+                                <li>Liver में प्रोसेस होने के बाद, रक्त <strong>Hepatic Veins</strong> के माध्यम से Inferior Vena Cava (IVC) में मिलता है और फिर हृदय में जाता है।</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="side-column">
+                    <div class="info-card">
+                        <h4>Coronary Circulation Recap 🫀</h4>
+                        <div class="timeline">
+                            <div class="timeline-item">
+                                <div class="timeline-title">Arterial Supply</div>
+                                <div class="timeline-desc">Aorta ➡️ Right & Left Coronary Arteries ➡️ Heart Muscle (Myocardium)</div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-title">Venous Drainage</div>
+                                <div class="timeline-desc">Heart Muscle ➡️ Cardiac Veins ➡️ Coronary Sinus ➡️ Right Atrium</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="info-card grow">
+                        <h4>Why Liver is a Checkpost? 👮‍♂️</h4>
+                        <p style="line-height: 1.8;">कल्पना करें कि आपने दवा खाई है। आंतों से वह खून में मिलेगी। अगर वह खून सीधा हृदय और दिमाग में गया तो toxicity हो सकती है। इसलिए Portal Vein उसे पहले Liver (Checkpost) पर ले जाती है चेकिंग और फिल्ट्रेशन के लिए!</p>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <div class="footer-tag">🗺️ Portal System</div>
+                <div class="footer-tag">👮‍♂️ Liver Checkpost</div>
+                <div class="footer-tag">🍽️ Digestion Link</div>
+            </div>
+        </section>
+
+        <!-- ==================== SLIDE 11: CONDUCTING SYSTEM OF HEART ==================== -->
+        <section class="slide">
+            <div class="slide-number">11 / 23</div>
+            <div class="slide-header">
+                <div class="brand">Prepe</div>
+                <div class="slide-title">Conducting System ⚡</div>
+            </div>
+            <div class="slide-content">
+                <div class="main-column">
+                    <h3>The Electrical Wiring of Heart</h3>
+                    <p style="font-size: 18px; color: var(--text-medium); margin-bottom: 20px; padding: 15px; background: #fffbeb; border-left: 4px solid #facc15; border-radius: 12px;">
+                        <strong>💡 Auto-rhythmicity:</strong> हृदय अपनी धड़कन (Electrical impulse) स्वयं उत्पन्न करता है, इसे दिमाग की जरूरत नहीं होती। इस प्रणाली को Conducting System कहते हैं।
+                    </p>
+                    <ul>
+                        <li>
+                            <div class="point-title"><span class="icon">🔋</span>1. SA Node (Sinoatrial Node)</div>
+                            <ul class="point-list">
+                                <li><strong>उपनाम:</strong> हृदय का प्राकृतिक पेसमेकर (Natural Pacemaker)।</li>
+                                <li><strong>स्थान:</strong> Right Atrium की ऊपरी दीवार पर (SVC के उद्घाटन के पास)।</li>
+                                <li><strong>कार्य:</strong> यह विद्युत संकेत (Impulse) पैदा करता है (70-80 बार/मिनट)।</li>
+                                <li>इसी के कारण दोनों Atria एक साथ सिकुड़ते हैं।</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <div class="point-title"><span class="icon">🚦</span>2. AV Node (Atrioventricular Node)</div>
+                            <ul class="point-list">
+                                <li><strong>स्थान:</strong> Interatrial septum के निचले हिस्से में।</li>
+                                <li><strong>कार्य:</strong> यह संकेत को कुछ समय (0.1 सेकंड) के लिए रोकता (Delay) है।</li>
+                                <li><strong>Delay क्यों?:</strong> ताकि Ventricles के सिकुड़ने से पहले Atria का पूरा खून Ventricles में आ जाए।</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <div class="point-title"><span class="icon">🛣️</span>3. Bundle of His (AV Bundle)</div>
+                            <ul class="point-list">
+                                <li>यह AV Node से संकेत लेकर Interventricular septum में जाता है।</li>
+                                <li>यह एकमात्र रास्ता है जिससे संकेत Atria से Ventricles में जा सकता है।</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="side-column">
+                    <div class="info-card">
+                        <h4>Pathway Continued ⚡</h4>
+                        <div class="timeline" style="margin-top: 5px;">
+                            <div class="timeline-item">
+                                <div class="timeline-title">4. Bundle Branches</div>
+                                <div class="timeline-desc">Bundle of His दो भागों में बंट जाता है: Right & Left Bundle Branches. ये septum के नीचे जाते हैं।</div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-title">5. Purkinje Fibres</div>
+                                <div class="timeline-desc"><strong>स्थान:</strong> Ventricles की दीवारों में फैला बारीक जाल।<br><strong>कार्य:</strong> संकेत को पूरे Ventricle में तेजी से फैलाना ताकि वह जोर से सिकुड़े।</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="info-card grow">
+                        <h4>Impulse Speed Summary ⏱️</h4>
+                        <table class="mini-table">
+                            <thead>
+                                <tr>
+                                    <th>Part</th>
+                                    <th>Inherent Rate</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>SA Node</strong></td>
+                                    <td>70-80 beats/min</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>AV Node</strong></td>
+                                    <td>40-60 beats/min</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Purkinje</strong></td>
+                                    <td>20-40 beats/min</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                         <div class="quick-fact" style="margin-top: 10px; font-size: 13px;">
+                            अगर SA node फेल हो जाए, तो AV node दिल को चला सकता है (पर धीमी गति से)।
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <div class="footer-tag">⚡ Electrical Wiring</div>
+                <div class="footer-tag">🔋 SA Node = Pacemaker</div>
+                <div class="footer-tag">🚦 AV Node Delay</div>
+                <div class="footer-tag">⭐ V. V. Important PYQ</div>
+            </div>
+        </section>
+
+        <!-- ==================== SLIDE 12: CARDIAC CYCLE (PHASES) ==================== -->
+        <section class="slide">
+            <div class="slide-number">12 / 23</div>
+            <div class="slide-header">
+                <div class="brand">Prepe</div>
+                <div class="slide-title">Cardiac Cycle (हृदय चक्र) 🔄</div>
+            </div>
+            <div class="slide-content">
+                <div class="main-column">
+                    <h3>Definition & Key Terms</h3>
+                    <p style="font-size: 18px; color: var(--text-medium); margin-bottom: 20px; padding: 15px; background: #f9fafb; border-radius: 12px;">
+                        <strong>📚 परिभाषा:</strong> एक धड़कन (heartbeat) के शुरू होने से लेकर अगली धड़कन के शुरू होने तक हृदय में होने वाले सभी परिवर्तनों को Cardiac Cycle कहते हैं।<br>
+                        <strong>⏱️ कुल समय:</strong> 0.8 सेकंड (यदि Heart Rate 72 bpm है: 60/72 = 0.8s)
+                    </p>
+                    <div class="badge-grid" style="margin-bottom: 20px;">
+                        <div class="badge" style="background: #fee2e2; color: #b91c1c; border-color: #ef4444;">Systole = संकुचन (Contraction)</div>
+                        <div class="badge" style="background: #e0f2fe; color: #0369a1; border-color: #3b82f6;">Diastole = विश्राम (Relaxation)</div>
+                    </div>
+
+                    <h3>Phases of Cardiac Cycle (3 चरण)</h3>
+                    <ul>
+                        <li>
+                            <div class="point-title"><span class="icon">1️⃣</span>Atrial Systole (0.1 सेकंड)</div>
+                            <ul class="point-list">
+                                <li>SA Node संकेत भेजता है ➡️ दोनों Atria एक साथ सिकुड़ते हैं।</li>
+                                <li>बचा हुआ 30% खून दबाव के कारण नीचे Ventricles में धकेल दिया जाता है।</li>
+                                <li>(70% खून पहले ही गुरुत्वाकर्षण के कारण नीचे जा चुका होता है)।</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <div class="point-title"><span class="icon">2️⃣</span>Ventricular Systole (0.3 सेकंड)</div>
+                            <ul class="point-list">
+                                <li>संकेत Purkinje fibres तक पहुँचता है ➡️ Ventricles जोर से सिकुड़ते हैं।</li>
+                                <li>दबाव बढ़ता है ➡️ AV Valves (Tricuspid/Bicuspid) बंद हो जाते हैं <strong>(पहला Heart Sound 'Lubb')</strong>।</li>
+                                <li>दबाव और बढ़ता है ➡️ Semilunar Valves खुल जाते हैं और खून Arteries (Aorta/Pulmonary) में चला जाता है।</li>
+                                <li>इस दौरान Atria विश्राम (Atrial Diastole) में होते हैं।</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="side-column">
+                    <div class="info-card" style="border: 2px solid var(--primary);">
+                        <h4>3️⃣ Joint Diastole (0.4 सेकंड)</h4>
+                        <p style="margin-bottom: 12px; font-weight: 600;">"पूर्ण विश्राम का समय"</p>
+                        <ul style="list-style-type: '▸'; padding-left: 20px; line-height: 1.8;">
+                            <li>Ventricles सिकुड़ने के बाद relax (diastole) होते हैं।</li>
+                            <li>Ventricles का दबाव गिरता है ➡️ Semilunar Valves बंद हो जाते हैं <strong>(दूसरा Heart Sound 'Dup')</strong>।</li>
+                            <li>सभी 4 कक्ष relax अवस्था में होते हैं।</li>
+                            <li>नसें (Veins) खून को Atria में भर रही होती हैं और AV वाल्व खुलने से खून सीधे Ventricles में भी जा रहा होता है।</li>
+                        </ul>
+                    </div>
+                    <div class="info-card grow">
+                        <h4>Cycle Time Calculation ⏱️</h4>
+                        <div class="flow-chart" style="flex-direction: column; align-items: stretch; gap: 10px;">
+                            <div style="background: #f1f5f9; padding: 10px; border-radius: 8px; text-align: center;">Atrial Systole: <strong>0.1s</strong></div>
+                            <div style="background: #fee2e2; padding: 10px; border-radius: 8px; text-align: center;">Ventricular Systole: <strong>0.3s</strong></div>
+                            <div style="background: #e0f2fe; padding: 10px; border-radius: 8px; text-align: center;">Joint Diastole: <strong>0.4s</strong></div>
+                            <div style="background: var(--primary-light); padding: 10px; border-radius: 8px; text-align: center; font-weight: bold; color: var(--secondary);">Total: 0.8 Seconds</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <div class="footer-tag">🔄 0.8 Seconds Cycle</div>
+                <div class="footer-tag">🔴 Systole = Contract</div>
+                <div class="footer-tag">🔵 Diastole = Relax</div>
+                <div class="footer-tag">⭐ Highly Expected PYQ</div>
+            </div>
+        </section>
+
+        <!-- ==================== SLIDE 13: HEART SOUNDS ==================== -->
+        <section class="slide">
+            <div class="slide-number">13 / 23</div>
+            <div class="slide-header">
+                <div class="brand">Prepe</div>
+                <div class="slide-title">Heart Sounds 🎧</div>
+            </div>
+            <div class="slide-content">
+                <div class="main-column">
+                    <h3>Normal Heart Sounds</h3>
+                    <p style="font-size: 18px; color: var(--text-medium); margin-bottom: 20px; padding: 15px; background: #f9fafb; border-radius: 12px;">
+                        <strong>💡 Concept:</strong> हृदय की ध्वनियाँ (Heart Sounds) वाल्वों के <strong>बंद होने (Closure)</strong> के कारण उत्पन्न होती हैं, वाल्वों के खुलने से कोई आवाज़ नहीं आती। डॉक्टर इन्हें Stethoscope से सुनते हैं (Auscultation)।
+                    </p>
+                    <ul>
+                        <li>
+                            <div class="point-title"><span class="icon">🔊</span>First Heart Sound (S1) - "Lubb"</div>
+                            <ul class="point-list">
+                                <li><strong>कैसे उत्पन्न होता है:</strong> Atrioventricular (AV) वाल्व (Tricuspid और Mitral) के बंद होने से।</li>
+                                <li><strong>कब:</strong> Ventricular Systole की शुरुआत में (जब Ventricle सिकुड़ना शुरू करता है)।</li>
+                                <li><strong>ध्वनि की प्रकृति:</strong> यह धीमी, लंबी (Prolonged) और कम पिच (Low pitch) वाली ध्वनि है।</li>
+                                <li>यह ध्वनि S2 की तुलना में अधिक समय तक रहती है (लगभग 0.15 सेकंड)।</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <div class="point-title"><span class="icon">🔉</span>Second Heart Sound (S2) - "Dup"</div>
+                            <ul class="point-list">
+                                <li><strong>कैसे उत्पन्न होता है:</strong> Semilunar (SL) वाल्व (Aortic और Pulmonary) के बंद होने से।</li>
+                                <li><strong>कब:</strong> Ventricular Diastole की शुरुआत में (जब Ventricle आराम करना शुरू करता है)।</li>
+                                <li><strong>ध्वनि की प्रकृति:</strong> यह तेज़, छोटी (Short) और उच्च पिच (High pitch) वाली ध्वनि है।</li>
+                                <li>यह S1 से तेज होती है (लगभग 0.10 सेकंड)।</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="side-column">
+                    <div class="info-card">
+                        <h4>Abnormal Sounds ⚠️</h4>
+                        <ul style="list-style-type: '▸'; padding-left: 20px; line-height: 1.8;">
+                            <li><strong>S3 (Third Sound):</strong> Ventricles में खून के तेज़ी से भरने (Rapid filling) के कारण। (बच्चों में normal, वयस्कों में Heart failure का संकेत)।</li>
+                            <li><strong>S4 (Fourth Sound):</strong> Atria के ज़ोर से सिकुड़ने पर (Atrial gallop)। हमेशा असामान्य (Hypertrophy)।</li>
+                        </ul>
+                    </div>
+                    <div class="info-card grow">
+                        <h4>Heart Murmurs 🌊</h4>
+                        <p style="line-height: 1.7;"><strong>Murmur (मरमर)</strong> एक असामान्य 'Swoosh' ध्वनि है।</p>
+                        <ul style="list-style-type: '▸'; padding-left: 20px; margin-top: 10px;">
+                            <li><strong>कारण:</strong> वाल्व का ठीक से बंद न होना (Regurgitation/Leakage) या वाल्व का संकरा हो जाना (Stenosis)।</li>
+                            <li>रक्त के turbulent (अशांत) प्रवाह के कारण यह आवाज़ आती है।</li>
+                        </ul>
+                        <div class="quick-fact" style="margin-top: 15px;">
+                            <strong>Auscultation Areas:</strong> छाती पर 4 जगहें जहाँ वाल्व की आवाज़ सबसे अच्छी सुनाई देती है (Aortic, Pulmonic, Tricuspid, Mitral areas)।
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <div class="footer-tag">🎧 Lubb & Dup</div>
+                <div class="footer-tag">🚪 Valves Closing</div>
+                <div class="footer-tag">🌊 Murmur = Leaky Valve</div>
+            </div>
+        </section>
+
+        <!-- ==================== SLIDE 14: CARDIAC OUTPUT ==================== -->
+        <section class="slide">
+            <div class="slide-number">14 / 23</div>
+            <div class="slide-header">
+                <div class="brand">Prepe</div>
+                <div class="slide-title">Cardiac Output 🧮</div>
+            </div>
+            <div class="slide-content">
+                <div class="main-column">
+                    <h3>Definition & Formula</h3>
+                    <p style="font-size: 18px; color: var(--text-medium); margin-bottom: 20px; padding: 15px; background: #fffbeb; border-radius: 12px; border-left: 4px solid #eab308;">
+                        <strong>📚 परिभाषा:</strong> एक मिनट में Left Ventricle द्वारा Aorta में पंप किए गए रक्त की कुल मात्रा को Cardiac Output (CO) कहते हैं। यह हृदय की कार्यक्षमता का सबसे अच्छा मापदंड है।
+                    </p>
+                    
+                    <div style="background: #f9fafb; padding: 25px; border-radius: 16px; text-align: center; border: 2px dashed var(--primary); margin-bottom: 25px;">
+                        <span style="font-size: 24px; font-weight: 800; color: var(--text-dark);">Cardiac Output (CO) = Heart Rate (HR) × Stroke Volume (SV)</span>
+                    </div>
+
+                    <ul>
+                        <li>
+                            <div class="point-title"><span class="icon">❤️</span>Heart Rate (HR)</div>
+                            <ul class="point-list">
+                                <li>एक मिनट में हृदय कितनी बार धड़कता है।</li>
+                                <li><strong>Normal Value:</strong> 72 beats per minute (bpm)।</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <div class="point-title"><span class="icon">🩸</span>Stroke Volume (SV)</div>
+                            <ul class="point-list">
+                                <li>एक धड़कन (One beat) में Ventricle द्वारा पंप किया गया रक्त।</li>
+                                <li><strong>Normal Value:</strong> लगभग 70 ml per beat।</li>
+                            </ul>
+                        </li>
+                    </ul>
+                    
+                    <h3>Calculation (गणना)</h3>
+                    <ul style="list-style: none; padding-left: 0;">
+                        <li style="background: white; border: none; padding: 0;">
+                            <div class="point-example" style="font-size: 19px;">
+                                CO = 72 beats/min × 70 ml/beat <br>
+                                <strong>CO ≈ 5040 ml/min या लगभग 5 Liters/min</strong>
+                            </div>
+                            <p style="margin-top: 10px; font-size: 16px; color: var(--text-medium);">यानी 1 मिनट में हमारे शरीर का <strong>पूरा 5 लीटर खून</strong> हृदय से होकर गुजर जाता है!</p>
+                        </li>
+                    </ul>
+                </div>
+                <div class="side-column">
+                    <div class="info-card">
+                        <h4>Factors Affecting SV 🎚️</h4>
+                        <ul style="list-style-type: '▸'; padding-left: 20px; line-height: 1.8;">
+                            <li><strong>Preload:</strong> सिकुड़ने से पहले Ventricle में खिंचाव (End-diastolic volume)।</li>
+                            <li><strong>Contractility:</strong> हृदय की मांसपेशियों की सिकुड़ने की ताकत।</li>
+                            <li><strong>Afterload:</strong> वह Resistance (दबाव) जिसके खिलाफ हृदय को खून पंप करना है (Blood pressure)।</li>
+                        </ul>
+                    </div>
+                    <div class="info-card grow">
+                        <h4>Frank-Starling Law ⚖️</h4>
+                        <p style="line-height: 1.7; margin-bottom: 10px;">"हृदय में जितना ज्यादा खून भरेगा (ज्यादा खिंचाव), हृदय उतनी ही ताकत से सिकुड़ेगा और उतना ही ज्यादा खून बाहर पंप करेगा।"</p>
+                        <div class="quick-fact" style="margin-top: 10px;">
+                            <strong>Exercise:</strong> एथलीट्स का Cardiac output व्यायाम के दौरान <strong>25 से 30 लीटर/मिनट</strong> तक बढ़ सकता है!
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <div class="footer-tag">🧮 CO = HR x SV</div>
+                <div class="footer-tag">🩸 Normal = 5 Liters/min</div>
+                <div class="footer-tag">⚖️ Frank-Starling Law</div>
+            </div>
+        </section>
+
+        <!-- ==================== SLIDE 15: BLOOD PRESSURE (BASICS) ==================== -->
+        <section class="slide">
+            <div class="slide-number">15 / 23</div>
+            <div class="slide-header">
+                <div class="brand">Prepe</div>
+                <div class="slide-title">Blood Pressure (रक्तचाप) 🌡️</div>
+            </div>
+            <div class="slide-content">
+                <div class="main-column">
+                    <h3>Definition & Types</h3>
+                    <p style="font-size: 18px; color: var(--text-medium); margin-bottom: 20px; padding: 15px; background: #f9fafb; border-radius: 12px;">
+                        <strong>📚 परिभाषा:</strong> बहते हुए रक्त द्वारा रक्त वाहिकाओं (Arteries) की दीवारों पर डाला गया दबाव (Pressure) Blood Pressure कहलाता है।
+                    </p>
+                    <ul>
+                        <li>
+                            <div class="point-title"><span class="icon">📈</span>Systolic Pressure (सिस्टोलिक)</div>
+                            <ul class="point-list">
+                                <li>यह <strong>अधिकतम दबाव (Maximum pressure)</strong> है।</li>
+                                <li>तब उत्पन्न होता है जब Left Ventricle सिकुड़ता है (Ventricular Systole) और खून Aorta में जाता है।</li>
+                                <li><strong>Normal Value:</strong> 120 mm Hg</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <div class="point-title"><span class="icon">📉</span>Diastolic Pressure (डायस्टोलिक)</div>
+                            <ul class="point-list">
+                                <li>यह <strong>न्यूनतम दबाव (Minimum pressure)</strong> है।</li>
+                                <li>तब होता है जब Ventricle आराम (Diastole) कर रहा होता है और खून धमनियों में बह रहा होता है।</li>
+                                <li><strong>Normal Value:</strong> 80 mm Hg</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <div class="point-title"><span class="icon">📊</span>Pulse Pressure (नाड़ी दबाव)</div>
+                            <ul class="point-list">
+                                <li>यह Systolic और Diastolic pressure के बीच का अंतर है।</li>
+                                <li><strong>Formula:</strong> Pulse Pressure = Systolic - Diastolic</li>
+                                <li><strong>Normal Value:</strong> 120 - 80 = 40 mm Hg</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="side-column">
+                    <div class="info-card">
+                        <h4>Mean Arterial Pressure (MAP)</h4>
+                        <p style="margin-bottom: 12px; font-size: 15px;">एक पूरे कार्डियक चक्र के दौरान धमनियों में औसत दबाव। अंगों (organs) तक खून पहुँचने के लिए MAP 60 mmHg से अधिक होना चाहिए।</p>
+                        <div class="badge-grid" style="grid-template-columns: 1fr;">
+                            <div class="badge" style="text-align: left; padding: 15px;">
+                                <strong>Formula:</strong><br>
+                                MAP = Diastolic + (Pulse Pressure / 3)<br>
+                                = 80 + (40/3) ≈ 93 mm Hg
+                            </div>
+                        </div>
+                    </div>
+                    <div class="info-card grow">
+                        <h4>BP Measurement 🩺</h4>
+                        <ul style="list-style-type: '▸'; padding-left: 20px; line-height: 1.8;">
+                            <li><strong>उपकरण:</strong> Sphygmomanometer (स्फिग्मोमैनोमीटर)।</li>
+                            <li><strong>Artery used:</strong> Brachial Artery (बांह में)।</li>
+                            <li><strong>ध्वनि:</strong> कफ से दबाव कम करते समय जो धड़कन सुनाई देती है उसे <strong>Korotkoff Sounds</strong> कहते हैं।</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <div class="footer-tag">🌡️ Normal BP = 120/80</div>
+                <div class="footer-tag">📈 Systolic = Contract</div>
+                <div class="footer-tag">📉 Diastolic = Relax</div>
+                <div class="footer-tag">🩺 Sphygmomanometer</div>
+            </div>
+        </section>
+
+        <!-- ==================== SLIDE 16: BLOOD PRESSURE (REGULATION & DISORDERS) ==================== -->
+        <section class="slide">
+            <div class="slide-number">16 / 23</div>
+            <div class="slide-header">
+                <div class="brand">Prepe</div>
+                <div class="slide-title">BP Regulation & Disorders ⚖️</div>
+            </div>
+            <div class="slide-content">
+                <div class="main-column">
+                    <h3>Regulation of Blood Pressure (नियंत्रण)</h3>
+                    <ul>
+                        <li>
+                            <div class="point-title"><span class="icon">🧠</span>1. Nervous Regulation (Short-term)</div>
+                            <ul class="point-list">
+                                <li><strong>Baroreceptors:</strong> Aorta और Carotid artery में pressure sensor होते हैं।</li>
+                                <li>BP बढ़ने पर ये दिमाग (Medulla) को सिग्नल भेजते हैं।</li>
+                                <li>दिमाग Parasympathetic नसों (Vagus nerve) द्वारा Heart rate कम कर देता है और नसें चौड़ी (Vasodilation) हो जाती हैं।</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <div class="point-title"><span class="icon">🩸</span>2. Hormonal Regulation (Long-term)</div>
+                            <ul class="point-list">
+                                <li><strong>RAAS System (Renin-Angiotensin-Aldosterone System):</strong> जब BP कम होता है, किडनी Renin छोड़ती है।</li>
+                                <li>यह रक्त वाहिकाओं को सिकोड़ता है (Vasoconstriction) और सोडियम/पानी बचाता है, जिससे BP बढ़ता है।</li>
+                                <li><strong>Adrenaline/Noradrenaline:</strong> तनाव में BP बढ़ाते हैं।</li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <h3>Blood Pressure Disorders</h3>
+                    <ul>
+                         <li>
+                            <div class="point-title"><span class="icon">⚠️</span>Hypertension (High BP)</div>
+                            <ul class="point-list">
+                                <li>लगातार BP का 140/90 mmHg या उससे अधिक होना।</li>
+                                <li><strong>खतरा:</strong> इसे 'Silent Killer' कहते हैं। Heart attack, Kidney failure, Stroke का कारण बनता है।</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <div class="point-title"><span class="icon">⬇️</span>Hypotension (Low BP)</div>
+                            <ul class="point-list">
+                                <li>BP का 90/60 mmHg से कम होना।</li>
+                                <li><strong>खतरा:</strong> चक्कर आना, बेहोशी, क्योंकि दिमाग को पर्याप्त O₂ नहीं मिलती।</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="side-column">
+                    <div class="info-card">
+                        <h4>Factors Affecting BP 📈</h4>
+                        <table class="mini-table">
+                            <thead>
+                                <tr>
+                                    <th>Factor</th>
+                                    <th>Effect on BP</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Cardiac Output ↑</td>
+                                    <td>BP बढ़ता है</td>
+                                </tr>
+                                <tr>
+                                    <td>Blood Volume ↑</td>
+                                    <td>BP बढ़ता है</td>
+                                </tr>
+                                <tr>
+                                    <td>Viscosity (गाढ़ापन) ↑</td>
+                                    <td>BP बढ़ता है</td>
+                                </tr>
+                                <tr>
+                                    <td>Vasodilation (नसें चौड़ी)</td>
+                                    <td>BP घटता है</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="info-card grow">
+                        <h4>Hypertension Categories 📊</h4>
+                        <ul style="list-style-type: '▸'; padding-left: 20px; line-height: 1.8;">
+                            <li><strong>Normal:</strong> < 120/80</li>
+                            <li><strong>Prehypertension:</strong> 120-139 / 80-89</li>
+                            <li><strong>Stage 1 HTN:</strong> 140-159 / 90-99</li>
+                            <li><strong>Stage 2 HTN:</strong> ≥ 160 / ≥ 100</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <div class="footer-tag">⚖️ Baroreceptors</div>
+                <div class="footer-tag">🩸 RAAS System</div>
+                <div class="footer-tag">⚠️ Silent Killer</div>
+            </div>
+        </section>
+
+        <!-- ==================== SLIDE 17: PULSE ==================== -->
+        <section class="slide">
+            <div class="slide-number">17 / 23</div>
+            <div class="slide-header">
+                <div class="brand">Prepe</div>
+                <div class="slide-title">Pulse (नाड़ी) 💓</div>
+            </div>
+            <div class="slide-content">
+                <div class="main-column">
+                    <h3>Definition & Basics</h3>
+                    <p style="font-size: 18px; color: var(--text-medium); margin-bottom: 20px; padding: 15px; background: #f9fafb; border-radius: 12px;">
+                        <strong>📚 परिभाषा:</strong> जब Left Ventricle सिकुड़कर खून को Aorta में धकेलता है, तो धमनियों (Arteries) में एक दबाव की लहर (Pressure wave) उत्पन्न होती है। इस लहर को त्वचा के करीब महसूस किया जा सकता है, इसे Pulse कहते हैं।
+                    </p>
+                    <ul>
+                        <li>
+                            <div class="point-title"><span class="icon">⏱️</span>Normal Pulse Rate</div>
+                            <ul class="point-list">
+                                <li>वयस्कों (Adults) में: <strong>60 - 100 beats per minute</strong> (औसत 72)।</li>
+                                <li>शिशुओं (Infants) में अधिक होती है (100 - 160 bpm)।</li>
+                                <li>Heart Rate और Pulse Rate आमतौर पर समान होते हैं।</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <div class="point-title"><span class="icon">📍</span>Common Pulse Sites (जांचने की जगहें)</div>
+                            <ul class="point-list">
+                                <li><strong>Radial Pulse:</strong> कलाई (Wrist) पर, अंगूठे की तरफ (सबसे आम)।</li>
+                                <li><strong>Carotid Pulse:</strong> गर्दन (Neck) पर (CPR या आपातकाल में जांची जाती है)।</li>
+                                <li><strong>Brachial Pulse:</strong> कोहनी (Elbow) के अंदर (BP नापने के लिए)।</li>
+                                <li><strong>Femoral Pulse:</strong> जांघ (Groin) के पास।</li>
+                                <li><strong>Popliteal Pulse:</strong> घुटने के पीछे।</li>
+                                <li><strong>Dorsalis Pedis:</strong> पैर के पंजे (Foot) के ऊपर।</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="side-column">
+                    <div class="info-card">
+                        <h4>Pulse Abnormalities ⚠️</h4>
+                        <div class="timeline" style="margin-top: 5px;">
+                            <div class="timeline-item">
+                                <div class="timeline-title" style="color: #ef4444;">Tachycardia</div>
+                                <div class="timeline-desc">Pulse rate <strong>> 100 bpm</strong> (बहुत तेज़)। <br>कारण: व्यायाम, बुखार, तनाव।</div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-title" style="color: #3b82f6;">Bradycardia</div>
+                                <div class="timeline-desc">Pulse rate <strong>< 60 bpm</strong> (बहुत धीमी)। <br>कारण: नींद, एथलीट्स, Heart block।</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="info-card grow">
+                        <h4>Characteristics of Pulse ✋</h4>
+                        <p style="margin-bottom: 10px;">Pulse चेक करते समय डॉक्टर 3 चीज़ें देखते हैं:</p>
+                        <ul style="list-style-type: '▸'; padding-left: 20px;">
+                            <li><strong>Rate:</strong> कितनी बार धड़क रही है? (तेज/धीमी)</li>
+                            <li><strong>Rhythm:</strong> क्या गैप समान है? (Regular/Irregular)</li>
+                            <li><strong>Volume:</strong> पल्स कितनी मजबूत है? (Strong/Weak/Thready)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <div class="footer-tag">💓 Pressure Wave</div>
+                <div class="footer-tag">📍 Radial & Carotid</div>
+                <div class="footer-tag">⏱️ 60-100 bpm</div>
+            </div>
+        </section>
+
+        <!-- ==================== SLIDE 18: ECG / ELECTROCARDIOGRAM (BASICS) ==================== -->
+        <section class="slide">
+            <div class="slide-number">18 / 23</div>
+            <div class="slide-header">
+                <div class="brand">Prepe</div>
+                <div class="slide-title">ECG (Electrocardiogram) 📈</div>
+            </div>
+            <div class="slide-content">
+                <div class="main-column">
+                    <h3>Definition & Principle</h3>
+                    <p style="font-size: 18px; color: var(--text-medium); margin-bottom: 20px; padding: 15px; background: #f9fafb; border-radius: 12px;">
+                        <strong>📚 परिभाषा:</strong> हृदय की electrical activity (विद्युत गतिविधि) का ग्राफिकल रिकॉर्ड ECG (या EKG) कहलाता है। मशीन को Electrocardiograph कहते हैं। <strong>खोजकर्ता:</strong> Einthoven.
+                    </p>
+                    <h3>Waves of Normal ECG</h3>
+                    <p style="font-size: 16px; margin-bottom: 10px;"><em>Depolarization = संकुचन (Contraction) के लिए विद्युत संकेत। <br>Repolarization = आराम (Relaxation) के लिए विद्युत वापसी।</em></p>
+                    <ul>
+                        <li>
+                            <div class="point-title"><span class="icon">🌊</span>P Wave</div>
+                            <ul class="point-list">
+                                <li>छोटी ऊपर उठती हुई लहर (Upward deflection)।</li>
+                                <li><strong>दर्शाती है:</strong> Atrial Depolarization (Atria का सिकुड़ना)।</li>
+                                <li>यह SA Node से संकेत शुरू होने के कारण होती है।</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <div class="point-title"><span class="icon">⚡</span>QRS Complex</div>
+                            <ul class="point-list">
+                                <li>तीन लहरों का समूह (Q नीचे, R बहुत ऊँची, S नीचे)।</li>
+                                <li><strong>दर्शाता है:</strong> Ventricular Depolarization (Ventricles का सिकुड़ना)।</li>
+                                <li>यह बहुत बड़ा होता है क्योंकि Ventricle की मांसपेशी बहुत मोटी होती है।</li>
+                                <li><em>(Atrial repolarization भी इसी समय होता है, लेकिन QRS के पीछे छिप जाता है)</em></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <div class="point-title"><span class="icon">🌊</span>T Wave</div>
+                            <ul class="point-list">
+                                <li>मध्यम आकार की ऊपर उठती लहर।</li>
+                                <li><strong>दर्शाती है:</strong> Ventricular Repolarization (Ventricles का वापस विश्राम अवस्था में आना)।</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="side-column">
+                    <div class="info-card">
+                        <h4>Intervals & Segments 📏</h4>
+                        <table class="mini-table">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Significance</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>PR Interval</strong></td>
+                                    <td>Atria से Ventricle तक संकेत पहुँचने का समय।</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>ST Segment</strong></td>
+                                    <td>Ventricle का पूरा संकुचन। (Heart attack में यह ऊपर उठ जाता है - STEMI)।</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="info-card grow">
+                        <h4>Clinical Uses of ECG 🏥</h4>
+                        <ul style="list-style-type: '▸'; padding-left: 20px; line-height: 1.8;">
+                            <li><strong>Arrhythmia:</strong> असामान्य धड़कन पकड़ना।</li>
+                            <li><strong>Myocardial Infarction:</strong> हार्ट अटैक का पता लगाना (ST Elevation / Deep Q wave)।</li>
+                            <li><strong>Heart Enlargement:</strong> चैंबर बड़े होने का पता (R wave ऊँची हो जाती है)।</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <div class="footer-tag">📈 P-QRS-T Waves</div>
+                <div class="footer-tag">⚡ Electrical Record</div>
+                <div class="footer-tag">🏥 Catch Heart Attack</div>
+                <div class="footer-tag">⭐ 100% Exam Topic</div>
+            </div>
+        </section>
+
+        <!-- ==================== SLIDE 19: REGULATION OF HEART ==================== -->
+        <section class="slide">
+            <div class="slide-number">19 / 23</div>
+            <div class="slide-header">
+                <div class="brand">Prepe</div>
+                <div class="slide-title">Regulation of Heart 🧠</div>
+            </div>
+            <div class="slide-content">
+                <div class="main-column">
+                    <h3>Autonomic Nervous System (ANS)</h3>
+                    <p style="font-size: 18px; color: var(--text-medium); margin-bottom: 20px; padding: 15px; background: #f9fafb; border-radius: 12px;">
+                        यद्यपि SA Node अपनी धड़कन खुद बनाता है, लेकिन <strong>मस्तिष्क का Medulla Oblongata</strong> इसे तेज़ या धीमा कर सकता है (मांग के अनुसार)।
+                    </p>
+                    <ul>
+                        <li>
+                            <div class="point-title"><span class="icon">🔥</span>Sympathetic Nervous System (SNS)</div>
+                            <ul class="point-list">
+                                <li><strong>कब सक्रिय होता है:</strong> तनाव, डर, व्यायाम, या "Fight or Flight" स्थिति में।</li>
+                                <li><strong>हृदय पर प्रभाव:</strong> 
+                                    <ul>
+                                        <li>Heart Rate (धड़कन) <strong>बढ़ जाती है</strong>।</li>
+                                        <li>संकुचन की शक्ति (Force of contraction) बढ़ जाती है।</li>
+                                        <li>Cardiac Output बढ़ जाता है।</li>
+                                    </ul>
+                                </li>
+                                <li><strong>Neurotransmitter:</strong> Noradrenaline (Norepinephrine)।</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <div class="point-title"><span class="icon">🧘‍♂️</span>Parasympathetic Nervous System (PNS)</div>
+                            <ul class="point-list">
+                                <li><strong>कब सक्रिय होता है:</strong> विश्राम (Rest), नींद या पाचन (Digest) के दौरान।</li>
+                                <li><strong>हृदय पर प्रभाव:</strong> 
+                                    <ul>
+                                        <li>Heart Rate <strong>कम हो जाती है</strong> (Normal पर लाता है)।</li>
+                                    </ul>
+                                </li>
+                                <li>यह <strong>Vagus Nerve</strong> के माध्यम से काम करता है।</li>
+                                <li><strong>Neurotransmitter:</strong> Acetylcholine।</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="side-column">
+                    <div class="info-card">
+                        <h4>Chemical / Hormonal Control 🧪</h4>
+                        <ul style="list-style-type: '▸'; padding-left: 20px; line-height: 1.8;">
+                            <li><strong>Adrenaline (Epinephrine):</strong> Adrenal ग्रंथि से निकलता है। यह हृदय गति को बहुत तेज़ी से बढ़ाता है।</li>
+                            <li><strong>Thyroxine:</strong> Thyroid हॉर्मोन, यह भी हृदय गति बढ़ाता है (Hyperthyroidism में Tachycardia होता है)।</li>
+                        </ul>
+                    </div>
+                    <div class="info-card grow">
+                        <h4>Ions Control (Electrolytes) ⚡</h4>
+                        <table class="mini-table">
+                            <thead>
+                                <tr>
+                                    <th>Ion Level</th>
+                                    <th>Effect on Heart</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>High K⁺ (Potassium)</strong></td>
+                                    <td>Heart Rate ↓, Blockage, Cardiac Arrest</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>High Ca²⁺ (Calcium)</strong></td>
+                                    <td>Heart Rate ↑, Stronger Contraction</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>High Na⁺ (Sodium)</strong></td>
+                                    <td>Ca²⁺ को रोकता है, Heart Rate ↓</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <div class="footer-tag">🧠 Medulla Center</div>
+                <div class="footer-tag">🔥 Sympathetic = Fast</div>
+                <div class="footer-tag">🧘‍♂️ Parasympathetic = Slow</div>
+            </div>
+        </section>
+
+        <!-- ==================== SLIDE 20: COMMON CARDIAC DISORDERS ==================== -->
+        <section class="slide">
+            <div class="slide-number">20 / 23</div>
+            <div class="slide-header">
+                <div class="brand">Prepe</div>
+                <div class="slide-title">Cardiac Disorders 🏥</div>
+            </div>
+            <div class="slide-content">
+                <div class="main-column">
+                    <h3>Ischemic Heart Diseases (खून की कमी)</h3>
+                    <ul>
+                        <li>
+                            <div class="point-title"><span class="icon">💔</span>Angina Pectoris (एंजाइना)</div>
+                            <ul class="point-list">
+                                <li>हृदय की मांसपेशियों (Myocardium) को पर्याप्त ऑक्सीजन न मिलने पर सीने में तेज़ दर्द।</li>
+                                <li>दर्द अक्सर बाएँ कंधे और हाथ में फैलता है।</li>
+                                <li>यह Heart Attack की "चेतावनी (Warning)" है। आराम करने या दवा (Nitroglycerin) लेने से ठीक हो जाता है।</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <div class="point-title"><span class="icon">🚑</span>Myocardial Infarction (हार्ट अटैक)</div>
+                            <ul class="point-list">
+                                <li>Coronary artery के पूरी तरह <strong>Block (Thrombosis)</strong> हो जाने के कारण।</li>
+                                <li>O₂ न मिलने से हृदय की मांसपेशियाँ मरने (Necrosis) लगती हैं।</li>
+                                <li>यह एक मेडिकल इमरजेंसी है। दर्द आराम करने से ठीक नहीं होता।</li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <h3>Other Disorders</h3>
+                    <ul>
+                        <li>
+                            <div class="point-title"><span class="icon">🫀</span>Heart Failure (हृदय की विफलता)</div>
+                            <ul class="point-list">
+                                <li>हृदय शरीर की ज़रूरत के हिसाब से पर्याप्त खून पंप <strong>नहीं</strong> कर पाता।</li>
+                                <li>यह धीरे-धीरे होता है। फेफड़ों में पानी भर सकता है (Congestive Heart Failure)।</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <div class="point-title"><span class="icon">⚡</span>Arrhythmia (अतालता)</div>
+                            <ul class="point-list">
+                                <li>हृदय की लय (Rhythm) का बिगड़ जाना (अनियमित धड़कन)।</li>
+                                <li><strong>Fibrillation:</strong> जब हृदय पंप करने के बजाय सिर्फ कांपता है (अत्यंत घातक)।</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="side-column">
+                    <div class="info-card" style="background: #fee2e2; border-color: #ef4444;">
+                        <h4 style="color: #991b1b;">⚠️ Cardiac Arrest vs Heart Attack</h4>
+                        <p style="margin-bottom: 10px; font-size: 15px;">लोग दोनों को एक समझते हैं, पर ये अलग हैं:</p>
+                        <ul style="list-style-type: '▸'; padding-left: 20px; line-height: 1.6; font-size: 15px;">
+                            <li><strong>Heart Attack (Plumbing Problem):</strong> खून की नस ब्लॉक हो जाती है। हृदय धड़कता रहता है, पर उसे नुकसान होता है।</li>
+                            <li><strong>Cardiac Arrest (Electrical Problem):</strong> हृदय अचानक धड़कना बिल्कुल बंद कर देता है (मरीज तुरंत बेहोश)। इसमें <strong>CPR</strong> की ज़रूरत होती है।</li>
+                        </ul>
+                    </div>
+                    <div class="info-card grow">
+                        <h4>Atherosclerosis 🍔</h4>
+                        <p style="line-height: 1.8;">यह हार्ट अटैक का मुख्य कारण है। धमनियों के अंदर <strong>Cholesterol और Plaque</strong> जमा हो जाता है, जिससे नसें संकरी और सख्त हो जाती हैं।</p>
+                        <div class="badge-grid">
+                            <div class="badge">LDL (Bad Cholesterol)</div>
+                            <div class="badge">Smoking Risk</div>
+                            <div class="badge">Obesity Risk</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <div class="footer-tag">💔 Angina vs MI</div>
+                <div class="footer-tag">🚑 Heart Attack</div>
+                <div class="footer-tag">⚡ Arrhythmia</div>
+                <div class="footer-tag">⚠️ Cardiac Arrest</div>
+            </div>
+        </section>
+
+        <!-- ==================== SLIDE 21: CLINICAL TERMS / VIVA ==================== -->
+        <section class="slide">
+            <div class="slide-number">21 / 23</div>
+            <div class="slide-header">
+                <div class="brand">Prepe</div>
+                <div class="slide-title">Clinical Terms & Viva 🗣️</div>
+            </div>
+            <div class="slide-content">
+                <div class="main-column">
+                    <h3>Very Short Answer Definitions (VIVA)</h3>
+                    <p style="font-size: 18px; color: var(--text-medium); margin-bottom: 20px; padding: 15px; background: #f9fafb; border-radius: 12px;">
+                        ये शब्द प्रैक्टिकल और वाइवा में बार-बार पूछे जाते हैं।
+                    </p>
+                    <div style="display: flex; flex-direction: column; gap: 15px;">
+                        <div style="padding: 15px; background: #fff; border: 1px solid var(--border-color); border-radius: 10px; border-left: 4px solid var(--primary);">
+                            <strong>Ischemia (इस्कीमिया):</strong> किसी अंग (जैसे हृदय) को रक्त की आपूर्ति (Blood supply) का कम हो जाना।
+                        </div>
+                        <div style="padding: 15px; background: #fff; border: 1px solid var(--border-color); border-radius: 10px; border-left: 4px solid #ef4444;">
+                            <strong>Infarction (इन्फार्क्शन):</strong> रक्त की आपूर्ति पूरी तरह बंद होने के कारण ऊतकों (Tissue) की मृत्यु (Necrosis) हो जाना।
+                        </div>
+                        <div style="padding: 15px; background: #fff; border: 1px solid var(--border-color); border-radius: 10px; border-left: 4px solid #3b82f6;">
+                            <strong>Cyanosis (सायनोसिस):</strong> खून में ऑक्सीजन की कमी के कारण त्वचा और होंठों का <strong>नीला</strong> पड़ जाना।
+                        </div>
+                        <div style="padding: 15px; background: #fff; border: 1px solid var(--border-color); border-radius: 10px; border-left: 4px solid #8b5cf6;">
+                            <strong>Auscultation:</strong> Stethoscope की मदद से शरीर के अंदर की आवाज़ें (जैसे Heart sounds) सुनना।
+                        </div>
+                        <div style="padding: 15px; background: #fff; border: 1px solid var(--border-color); border-radius: 10px; border-left: 4px solid #10b981;">
+                            <strong>Palpitation (धड़कन महसूस होना):</strong> जब व्यक्ति को अपनी ही दिल की धड़कन (तेज़ या असामान्य) महसूस होने लगे।
+                        </div>
+                    </div>
+                </div>
+                <div class="side-column">
+                    <div class="info-card">
+                        <h4>Normal Values Memory 🧠</h4>
+                        <table class="mini-table">
+                            <thead>
+                                <tr>
+                                    <th>Parameter</th>
+                                    <th>Value</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Heart Rate</strong></td>
+                                    <td>72 bpm</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Blood Pressure</strong></td>
+                                    <td>120/80 mmHg</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Stroke Volume</strong></td>
+                                    <td>70 ml/beat</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Cardiac Output</strong></td>
+                                    <td>~5 Liters/min</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Cardiac Cycle</strong></td>
+                                    <td>0.8 Seconds</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="info-card grow">
+                        <h4>Top Viva Questions ❓</h4>
+                        <ul style="list-style-type: '▸'; padding-left: 20px; font-size: 15px;">
+                            <li>सबसे मोटी परत कौन सी है? (Left Ventricle Myocardium)</li>
+                            <li>Pacemaker किसे कहते हैं? (SA Node)</li>
+                            <li>अशुद्ध रक्त ले जाने वाली धमनी? (Pulmonary Artery)</li>
+                            <li>Lubb sound कब आता है? (AV Valves के बंद होने पर)</li>
+                            <li>QRS complex क्या दर्शाता है? (Ventricular Depolarization)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <div class="footer-tag">🗣️ Viva Voce</div>
+                <div class="footer-tag">🧠 Normal Values</div>
+                <div class="footer-tag">📝 Must Know Terms</div>
+            </div>
+        </section>
+        
+        <!-- ==================== SLIDE 22: SUMMARY & REVISION ==================== -->
+        <section class="slide">
+            <div class="slide-number">22 / 23</div>
+            <div class="slide-header">
+                <div class="brand">Prepe</div>
+                <div class="slide-title">Summary & Revision 📚</div>
+            </div>
+            <div class="slide-content">
+                <div style="width: 100%; display: flex; flex-direction: column; gap: 25px;">
+                    <div class="info-card" style="background: #f9fafb;">
+                        <h4>🎯 PYQ Focus Topics (Exam Essentials)</h4>
+                        <div class="badge-grid">
+                            <div class="badge">Structure of Heart<br>& Chambers</div>
+                            <div class="badge">Conducting System<br>(SA to Purkinje)</div>
+                            <div class="badge">Cardiac Cycle<br>(0.8s)</div>
+                            <div class="badge">ECG Waves<br>(PQRST)</div>
+                            <div class="badge">Blood Circulation<br>Double Flow</div>
+                            <div class="badge">Blood Pressure<br>& Regulation</div>
+                            <div class="badge">Cardiac Output<br>Formula</div>
+                            <div class="badge">Heart Sounds<br>(Lubb-Dup)</div>
+                            <div class="badge">Valves of Heart<br>Location</div>
+                            <div class="badge">Coronary<br>Circulation</div>
+                        </div>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                        <div class="info-card">
+                            <h4>Cardiac Key Phrases 🏷️</h4>
+                            <table class="mini-table">
+                                <thead>
+                                    <tr>
+                                        <th>Term</th>
+                                        <th>Known As</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>SA Node</td>
+                                        <td>⚡ Natural Pacemaker</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Left Ventricle</td>
+                                        <td>💪 Thickest/Strongest Pump</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Aorta</td>
+                                        <td>👑 Largest Artery</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Vena Cava</td>
+                                        <td>🟦 Largest Vein</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Myocardium</td>
+                                        <td>🧱 Pumping Muscle Layer</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Pericardium</td>
+                                        <td>🛡️ Protective Sac</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="info-card">
+                            <h4>Key Differences 🔑</h4>
+                            <div style="display: flex; flex-direction: column; gap: 15px; margin-top: 15px;">
+                                <div style="padding: 12px; background: #f9fafb; border-left: 4px solid var(--primary); border-radius: 8px;">
+                                    <strong style="color: var(--primary-dark);">Artery vs Vein:</strong><br>
+                                    <span style="font-size: 15px;">• हृदय से दूर vs हृदय की ओर<br>• शुद्ध रक्त (except Pulm) vs अशुद्ध रक्त<br>• मोटी दीवार vs पतली दीवार + वाल्व</span>
+                                </div>
+                                <div style="padding: 12px; background: #f9fafb; border-left: 4px solid var(--secondary); border-radius: 8px;">
+                                    <strong style="color: var(--secondary);">Systole vs Diastole:</strong><br>
+                                    <span style="font-size: 15px;">• संकुचन (Contraction) vs विश्राम (Relaxation)<br>• रक्त बाहर जाता है vs रक्त भरता है</span>
+                                </div>
+                                <div style="padding: 12px; background: #f9fafb; border-left: 4px solid #db2777; border-radius: 8px;">
+                                    <strong style="color: #be185d;">Tricuspid vs Bicuspid:</strong><br>
+                                    <span style="font-size: 15px;">• Right Side vs Left Side<br>• 3 Flaps vs 2 Flaps (Mitral)</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <div class="footer-tag">📚 Final Revision</div>
+                <div class="footer-tag">🎯 Quick Recap</div>
+                <div class="footer-tag">⭐ Exam Essentials</div>
+                <div class="footer-tag">🏆 आप तैयार हैं!</div>
+            </div>
+        </section>
+
+        <!-- ==================== SLIDE 23: FINAL WORDS ==================== -->
+        <section class="slide final-slide">
+            <div class="slide-number">23 / 23</div>
+            <div class="final-slide-content">
+                <h2>Welcome to Prepe</h2>
+                <h3>अपनी तैयारी को नई उड़ान दें!</h3>
+                <p>हमारे अन्य बेहतरीन कोर्सेस भी देखें।</p>
+                
+                <div class="final-slide-grid">
+                    <!-- Box 1: Offer -->
+                    <a href="https://offer.prepeai.in" class="final-slide-box" target="_blank" rel="noopener noreferrer">
+                        <div class="icon offer">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>
+                        </div>
+                        <h4>FLAT 50% OFF</h4>
+                        <span>Limited Time Offer</span>
+                    </a>
+                    
+                    <!-- Box 2: Courses -->
+                    <a href="https://shop.prepeai.in" class="final-slide-box" target="_blank" rel="noopener noreferrer">
+                        <div class="icon courses">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+                        </div>
+                        <h4>Explore More Courses</h4>
+                        <span>Expand Your Knowledge</span>
+                    </a>
+                    
+                    <!-- Box 3: Instagram -->
+                    <a href="https://insta.prepeai.in" class="final-slide-box insta-box" target="_blank" rel="noopener noreferrer">
+                        <div class="icon insta">
+                             <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                        </div>
+                        <h4>Follow on Instagram</h4>
+                        <span>@prepe.ai</span>
+                    </a>
+                </div>
+                
+                <div class="final-slide-divider"></div>
+                
+                <a href="https://www.prepeai.in" class="final-slide-button" target="_blank" rel="noopener noreferrer">
+                    Visit Our Website
+                </a>
+            </div>
+        </section>
+
+    </main>
+</body>
+</html>
